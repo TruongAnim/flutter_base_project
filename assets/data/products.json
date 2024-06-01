@@ -1,0 +1,19 @@
+[
+    {
+        "id": 1,
+        "name": "Tofu with tomato",
+        "ingredients": [
+            "Tofu",
+            "Tomato"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Fried rice",
+        "ingredients": [
+            "Rice",
+            "Chicken",
+            "Fish source"
+        ]
+    }
+]
