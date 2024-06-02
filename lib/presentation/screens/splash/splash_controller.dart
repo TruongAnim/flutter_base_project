@@ -37,19 +37,19 @@ class SplashController extends GetxController
       parent: animationController,
       curve: Curves.bounceOut,
     );
-
     animationController.forward();
   }
 
   void toSecondScreen() {
     bool isFirstOpen = appGlobal<SharedPreferenceHelper>().getIsFirstOpen;
     if (isFirstOpen) {
-      Get.offAllNamed(BaseRouters.LANGUAGE, arguments: {'isIntro': true});
+      appGlobal<SharedPreferenceHelper>().setIsFirstOpen(isFirst: false);
     } else {
       // premiumCtrl.handleActionWithPremiumRole(() {
       //   Get.offAllNamed(BaseRouters.MAIN_NAVIGATOR);
       // }, true);
     }
+    Get.offAllNamed(BaseRouters.dashboard);
   }
 
   void _loadingAds({required void Function() callback}) {

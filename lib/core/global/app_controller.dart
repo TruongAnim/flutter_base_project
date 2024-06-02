@@ -5,7 +5,7 @@ import 'package:flutter_base_project/core/shared_preference/exports.dart';
 import 'package:get/get.dart';
 
 import 'di_container.dart';
-import 'init_data_helper.dart';
+import '../helper/init_data_helper.dart';
 
 class AppController extends GetxController {
   // final _isarRepo = appGlobal<IsarRepo>();
@@ -28,7 +28,7 @@ class AppController extends GetxController {
   }
 
   Future<void> _initData() async {
-    // final dataHepler = InitDataHelper();
-    // await dataHepler.initData();
+    final dataHepler = InitDataHelper();
+    await dataHepler.initData();
   }
 }

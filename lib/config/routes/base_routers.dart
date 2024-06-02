@@ -12,19 +12,21 @@
 // import 'package:base_project/presentation/screens/survey/survey_binding.dart';
 // import 'package:base_project/presentation/screens/survey/survey_screen.dart';
 // import 'package:base_project/presentation/screens/well_come/well_come_screen.dart';
+import 'package:flutter_base_project/presentation/screens/dashboard/dashboard_binding.dart';
+import 'package:flutter_base_project/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter_base_project/presentation/screens/splash/splash_binding.dart';
 import 'package:flutter_base_project/presentation/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
 mixin BaseRouters {
-  static const String SPLASH = '/splash';
+  static const String splash = '/splash';
   static const String LANGUAGE = '/language';
   static const String INTRO = '/intro';
-  static const String MAIN_NAVIGATOR = '/main_navigator';
+  static const String dashboard = '/dashboard';
 
   static List<GetPage> listPage = [
     GetPage(
-      name: SPLASH,
+      name: splash,
       page: () => const SplashScreen(),
       binding: SplashBinding(),
     ),
@@ -38,10 +40,10 @@ mixin BaseRouters {
     //   page: () => const IntroScreen(),
     //   binding: IntroBinding(),
     // ),
-    // GetPage(
-    //   name: MAIN_NAVIGATOR,
-    //   page: () => const MainNavigatorScreen(),
-    //   binding: BottomTabBinding(),
-    // ),
+    GetPage(
+      name: dashboard,
+      page: () => const DashboardScreen(),
+      binding: DashboardBinding(),
+    ),
   ];
 }

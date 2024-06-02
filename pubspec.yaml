@@ -37,7 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.6
   get: ^4.6.6
   get_it: ^7.7.0
-  dio_http_formatter: ^3.2.1
   firebase_core: ^2.32.0
   firebase_auth: ^4.20.0
   firebase_messaging: ^14.9.4
@@ -71,6 +70,9 @@ dependencies:
   gap: ^3.0.1
   image_picker: ^1.1.2
   intl: ^0.19.0
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  dio: ^5.4.3+1
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +84,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.10
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -99,6 +103,7 @@ flutter:
     - assets/base/common/
     - assets/base/flags/
     - assets/base/logo/
+    - assets/data/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

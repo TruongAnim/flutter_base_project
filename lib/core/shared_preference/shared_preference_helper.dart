@@ -34,37 +34,11 @@ class SharedPreferenceHelper {
     return _sharedPreference.getString(Preferences.locale) ?? '';
   }
 
-  // check if show user clicker guide
-  bool get getShowClickerGuide {
-    return _sharedPreference.getBool(Preferences.isShowClickerGuide) ?? false;
+  String get getJwtToken {
+    return _sharedPreference.getString(Preferences.isShowClickerGuide) ?? '';
   }
 
-  void setShowClickerGuide(bool isShow) {
-    _sharedPreference.setBool(Preferences.isShowClickerGuide, isShow);
-  }
-
-  // check if show swipe guide
-  bool get getShowSwipeGuide {
-    return _sharedPreference.getBool(Preferences.isShowSwipeGuide) ?? false;
-  }
-
-  void setShowSwipeGuide(bool isShow) {
-    _sharedPreference.setBool(Preferences.isShowSwipeGuide, isShow);
-  }
-
-  void setFirstSoundOpen(bool isFristOpen) {
-    _sharedPreference.setBool(Preferences.isFirstSoundOpen, isFristOpen);
-  }
-
-  bool get getFirstSoundOpen {
-    return _sharedPreference.getBool(Preferences.isFirstSoundOpen) ?? true;
-  }
-
-  void setPremium(bool isPremium) {
-    _sharedPreference.setBool(Preferences.isPremium, isPremium);
-  }
-
-  bool get getPremium {
-    return _sharedPreference.getBool(Preferences.isPremium) ?? false;
+  void setJwtToken(String token) {
+    _sharedPreference.setString(Preferences.isShowClickerGuide, token);
   }
 }

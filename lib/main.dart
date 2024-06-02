@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           child: GetMaterialApp(
-            initialRoute: BaseRouters.SPLASH,
+            initialRoute: BaseRouters.splash,
             initialBinding: AppBinding(),
             locale: LocalizationService.locale,
             fallbackLocale: LocalizationService.fallbackLocale,

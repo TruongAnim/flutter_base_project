@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 bool nullOrEmpty(dynamic value) {
   if (value == null ||
       value.toString().trim().isEmpty ||
@@ -7,8 +9,14 @@ bool nullOrEmpty(dynamic value) {
   return false;
 }
 
-bool notNullorEmpty(dynamic value) {
+bool notNullOrEmpty(dynamic value) {
   return !nullOrEmpty(value);
 }
 
-mixin ValidatorHelper {}
+mixin ValidatorHelper {
+  static bool validateResponse(Response response) {
+    return nullOrEmpty(response.statusCode) &&
+        response.statusCode! >= 200 &&
+        response.statusCode! <= 300;
+  }
+}
