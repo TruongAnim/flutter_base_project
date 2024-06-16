@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 mixin BaseDialog {
   static Future<void> showGenerateDialog({
     required BuildContext context,
-    bool? isAllowCloseOutSize = true,
     required Widget childWidget,
+    bool? isAllowCloseOutSize = true,
     bool? allowWillPop = true,
   }) async {
     await showGeneralDialog(
@@ -35,9 +35,7 @@ mixin BaseDialog {
                   color: Colors.transparent,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      childWidget,
-                    ],
+                    children: [childWidget],
                   ),
                 ),
               ),

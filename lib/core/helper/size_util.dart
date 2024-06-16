@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 Widget spaceWidth(double width, {double? height}) {
   return SizedBox(width: width, height: height);
@@ -24,5 +25,9 @@ mixin SizeUtil {
   ///
   static double statusBarHeight() {
     return ScreenUtil().statusBarHeight;
+  }
+
+  static bool isTablet() {
+    return ScreenUtil().deviceType(Get.context!) == DeviceType.tablet;
   }
 }
