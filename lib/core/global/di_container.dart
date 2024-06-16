@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/core/services/exports.dart';
 import 'package:flutter_base_project/data/interceptor/logging_interceptor.dart';
 import 'package:flutter_base_project/data/repo/local/exports.dart';
 import 'package:flutter_base_project/data/repo/local_file_repo.dart';
@@ -13,6 +14,10 @@ final appGlobal = GetIt.instance;
 mixin DiContainer {
   static late SharedPreferences sharedPreferences;
   static Future<void> init() async {
+    // Firebase Crashlytics
+    appGlobal
+        .registerSingleton<CrashlyticsService>(CrashlyticsService()..init());
+
     // Share preference
     sharedPreferences = await SharedPreferences.getInstance();
     appGlobal.registerLazySingleton<SharedPreferenceHelper>(
@@ -35,7 +40,7 @@ mixin DiContainer {
     appGlobal.registerSingleton<RemoteRepo>(remoteRepo);
     appGlobal.registerSingleton<PostRepo>(PostRepo(remoteRepo));
 
-    // // Audio service
-    // appGlobal.registerLazySingleton<AudioService>(() => AudioService());
+    // Audio service
+    appGlobal.registerLazySingleton<AudioService>(() => AudioService());
   }
 }

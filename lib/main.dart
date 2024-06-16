@@ -6,7 +6,6 @@ import 'package:flutter_base_project/firebase_options.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:timeago/timeago.dart' as time_ago;
 
 import 'config/routes/exports.dart';
 import 'config/theme/exports.dart';
@@ -21,10 +20,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
       name: "Flutter base project",
       options: DefaultFirebaseOptions.currentPlatform);
-  await CrashlyticsService.init();
-
-  // Set local.
-  time_ago.setLocaleMessages('vi', time_ago.ViMessages());
 
   // Init Get it.
   await DiContainer.init();

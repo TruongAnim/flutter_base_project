@@ -53,6 +53,7 @@ mixin DateTimeHelper {
   static String timeAgo(DateTime date, {String format = 'HH:mm dd-MM-yyyy'}) {
     //
     // Convert to dd-MM-yyyy.
+    // time_ago.setLocaleMessages('vi', time_ago.ViMessages());
     final String passDate = DateFormat('dd-MM-yyyy').format(date);
     final DateTime convertPassDate = DateFormat('dd-MM-yyyy').parse(passDate);
     final DateTime now = DateTime.now();
@@ -63,33 +64,5 @@ mixin DateTimeHelper {
     }
 
     return time_ago.format(date, locale: local);
-  }
-
-  ///
-  /// Custom time ago.
-  ///
-  static String timeAgoCustom(DateTime dateTime, {bool numericDates = true}) {
-    final date2 = DateTime.now();
-    final difference = date2.difference(dateTime);
-
-    if ((difference.inDays / 7).floor() >= 1) {
-      return numericDates ? '1 tuần' : '1 week';
-    } else if (difference.inDays >= 2) {
-      return '${difference.inDays} ngày';
-    } else if (difference.inDays >= 1) {
-      return numericDates ? '1 ngày' : 'Yesterday';
-    } else if (difference.inHours >= 2) {
-      return '${difference.inHours} giờ';
-    } else if (difference.inHours >= 1) {
-      return numericDates ? '1 giờ' : 'An hour ago';
-    } else if (difference.inMinutes >= 2) {
-      return '${difference.inMinutes}p';
-    } else if (difference.inMinutes >= 1) {
-      return numericDates ? '1p' : 'A minute ago';
-    } else if (difference.inSeconds >= 3) {
-      return '${difference.inSeconds}s';
-    } else {
-      return 'Bây giờ';
-    }
   }
 }
