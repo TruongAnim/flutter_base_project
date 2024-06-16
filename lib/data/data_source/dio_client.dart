@@ -199,7 +199,7 @@ class DioClient {
     } on FormatException catch (_) {
       throw const FormatException('Unable to process the data');
     } catch (e) {
-      print("Download file error");
+      appPrint("Download file error");
       rethrow;
     }
   }
@@ -230,7 +230,7 @@ class DioClient {
     } on FormatException catch (_) {
       throw const FormatException('Unable to process the data');
     } catch (e) {
-      print("Upload image");
+      appPrint("Upload image");
       rethrow;
     }
   }

@@ -1,6 +1,7 @@
-import 'package:isar/isar.dart';
-
 class BaseModel {
-  Id id = Isar.autoIncrement;
-  BaseModel({this.id = Isar.autoIncrement});
+  String? id;
+
+  BaseModel({this.id});
+
+  String get getId => id.toString();
 }

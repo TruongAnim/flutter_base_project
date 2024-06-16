@@ -5,14 +5,15 @@ import 'local_repo.dart';
 class ProductLocalRepo {
   final LocalRepo localRepo;
   ProductLocalRepo(this.localRepo) {
-    localRepo.registerCollection<ProductModel>(localRepo.isar.productModels);
+    localRepo.registerCollection<ProductLocalModel>(
+        localRepo.isar.productLocalModels);
   }
 
   Future<void> getAll(
-      {required Function(List<ProductModel>) onSuccess,
+      {required Function(List<ProductLocalModel>) onSuccess,
       required Function(dynamic error) onError}) async {
     try {
-      onSuccess(await localRepo.getAll<ProductModel>());
+      onSuccess(await localRepo.getAll<ProductLocalModel>());
     } catch (e) {
       onError(e);
     }
@@ -20,10 +21,10 @@ class ProductLocalRepo {
 
   Future<void> getProductByName(
       String name,
-      Function(List<ProductModel>) onSuccess,
+      Function(List<ProductLocalModel>) onSuccess,
       Function(dynamic onError) onError) async {
     try {
-      final allProduct = await localRepo.getAll<ProductModel>();
+      final allProduct = await localRepo.getAll<ProductLocalModel>();
       onSuccess(allProduct
           .where((item) => item.name?.contains(name) ?? false)
           .toList());

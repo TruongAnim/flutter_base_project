@@ -7,7 +7,7 @@ class IsarService {
   Future<Isar> init() async {
     final dir = await getApplicationDocumentsDirectory();
     return Isar.openSync(
-      [ProductModelSchema],
+      [ProductLocalModelSchema],
       directory: dir.path,
       name: 'Local_Database',
     );

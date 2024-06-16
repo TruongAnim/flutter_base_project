@@ -30,7 +30,7 @@ class RemoteRepo with Mapping {
   }
 
   Future<void> paginate<T>({
-    int page = 0,
+    int page = 1,
     int limit = 10,
     String filter = '',
     required Function(List<T> results) onSuccess,
@@ -38,7 +38,6 @@ class RemoteRepo with Mapping {
   }) async {
     late Response response;
     String uri = '${getEndPoint<T>()}/paginate?page=$page&limit=$limit$filter';
-
     try {
       response = await dio.get(uri);
     } catch (e) {
@@ -122,12 +121,12 @@ class RemoteRepo with Mapping {
   }
 
   Future<void> delete<T>({
-    required String filter,
+    required String id,
     required Function(T results) onSuccess,
     required Function(dynamic error) onError,
   }) async {
     late Response response;
-    String uri = '${getEndPoint<T>()}?$filter';
+    String uri = '${getEndPoint<T>()}/$id';
 
     try {
       response = await dio.delete(uri);

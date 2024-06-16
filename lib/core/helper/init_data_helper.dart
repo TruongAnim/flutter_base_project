@@ -10,7 +10,7 @@ class InitDataHelper {
 
   Future<void> initData() async {
     List<Future<void>> futures = [
-      _initDataFromJson<ProductModel>(),
+      _initDataFromJson<ProductLocalModel>(),
     ];
     await Future.wait(futures);
   }

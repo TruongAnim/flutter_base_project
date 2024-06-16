@@ -1,5 +1,6 @@
 import 'package:flutter_base_project/constants/exports.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'dashboard_controller.dart';
@@ -22,6 +23,14 @@ class DashboardScreen extends GetView<DashboardController> {
           },
         );
       }),
+      bottomNavigationBar: Container(
+        height: 0.1.sh,
+        width: 1.sw,
+        child: ElevatedButton(
+          onPressed: controller.toListPost,
+          child: Text('To list post'),
+        ),
+      ),
     );
   }
 }

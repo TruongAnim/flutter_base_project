@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:isar/isar.dart';
-import 'base_model.dart';
+import 'base_local_model.dart';
 
-part 'product_model.g.dart';
+part 'product_local_model.g.dart';
 
 @collection
-class ProductModel extends BaseModel {
+class ProductLocalModel extends BaseLocalModel {
   String? name;
   List<String>? ingredients;
-  ProductModel({
+  ProductLocalModel({
     super.id = Isar.autoIncrement,
     this.name,
     this.ingredients,
@@ -25,8 +25,8 @@ class ProductModel extends BaseModel {
   }
 
   @override
-  factory ProductModel.fromMap(Map<String, dynamic> map) {
-    return ProductModel(
+  factory ProductLocalModel.fromMap(Map<String, dynamic> map) {
+    return ProductLocalModel(
       id: map['id'] != null ? map['id'] as int : Isar.autoIncrement,
       name: mapToString(map['name']),
       ingredients: map['ingredients'] != null
@@ -37,6 +37,6 @@ class ProductModel extends BaseModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ProductModel.fromJson(String source) =>
-      ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ProductLocalModel.fromJson(String source) =>
+      ProductLocalModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

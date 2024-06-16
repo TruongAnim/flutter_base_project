@@ -6,20 +6,20 @@ import 'package:flutter_base_project/data/response/exports.dart';
 
 import 'remote_repo.dart';
 
-class ProductRemoteRepo {
+class PostRepo {
   final RemoteRepo remoteRepo;
-  ProductRemoteRepo(this.remoteRepo) {
-    remoteRepo.registerEndPoint<ProductModel>(EndPoints.REMOTE_PRODUCT);
-    remoteRepo.registerConstructor<ProductModel>(ProductModel.fromMap);
+  PostRepo(this.remoteRepo) {
+    remoteRepo.registerEndPoint<PostModel>(EndPoints.REMOTE_POST);
+    remoteRepo.registerConstructor<PostModel>(PostModel.fromMap);
   }
 
-  Future<void> getProductByName({
+  Future<void> getPostByName({
     required String filter,
-    required Function(ProductModel results) onSuccess,
+    required Function(PostModel results) onSuccess,
     required Function(dynamic error) onError,
   }) async {
     late Response response;
-    String uri = '${remoteRepo.getEndPoint<ProductModel>()}?$filter';
+    String uri = '${EndPoints.REMOTE_POST}?$filter';
 
     try {
       response = await remoteRepo.dio.get(uri);
@@ -29,7 +29,7 @@ class ProductRemoteRepo {
     }
     if (ValidatorHelper.validateResponse(response)) {
       final data = response.data as Map<String, dynamic>;
-      onSuccess(ProductModel.fromMap(data));
+      onSuccess(PostModel.fromMap(data));
     } else {
       onError(ApiErrorHandler.getMessage(response.data));
     }

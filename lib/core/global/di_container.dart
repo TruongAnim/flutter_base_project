@@ -1,8 +1,7 @@
-import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:flutter_base_project/data/interceptor/logging_interceptor.dart';
 import 'package:flutter_base_project/data/repo/local/exports.dart';
 import 'package:flutter_base_project/data/repo/local_file_repo.dart';
-import 'package:flutter_base_project/data/repo/remote/product_remote_repo.dart';
+import 'package:flutter_base_project/data/repo/remote/post_repo.dart';
 import 'package:flutter_base_project/data/repo/remote/remote_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,8 +33,7 @@ mixin DiContainer {
 
     // Remote DB
     appGlobal.registerSingleton<RemoteRepo>(remoteRepo);
-    appGlobal
-        .registerSingleton<ProductRemoteRepo>(ProductRemoteRepo(remoteRepo));
+    appGlobal.registerSingleton<PostRepo>(PostRepo(remoteRepo));
 
     // // Audio service
     // appGlobal.registerLazySingleton<AudioService>(() => AudioService());

@@ -15,8 +15,8 @@ bool notNullOrEmpty(dynamic value) {
 
 mixin ValidatorHelper {
   static bool validateResponse(Response response) {
-    return nullOrEmpty(response.statusCode) &&
+    return !nullOrEmpty(response.statusCode) &&
         response.statusCode! >= 200 &&
-        response.statusCode! <= 300;
+        response.statusCode! < 400;
   }
 }

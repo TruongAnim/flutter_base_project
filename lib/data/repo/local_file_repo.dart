@@ -9,11 +9,11 @@ class LocalFileRepo with Mapping {
   final LocalFileService _localFileRepo = LocalFileService();
 
   void init() async {
-    registerMapping<ProductModel>(
+    registerMapping<ProductLocalModel>(
         MappingType.localEndPoint, EndPoints.LOCAL_PRODUCT);
 
-    registerMapping<ProductModel>(
-        MappingType.constructor, ProductModel.fromMap);
+    registerMapping<ProductLocalModel>(
+        MappingType.constructor, ProductLocalModel.fromMap);
   }
 
   Future<List<T>> getAll<T>() async {
