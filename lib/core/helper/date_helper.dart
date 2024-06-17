@@ -1,4 +1,5 @@
 import 'package:flutter_base_project/core/global/exports.dart';
+import 'package:flutter_base_project/core/helper/common_helper.dart';
 import 'package:flutter_base_project/core/shared_preference/exports.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:intl/intl.dart';
@@ -15,9 +16,7 @@ mixin DateTimeHelper {
   static String format_8 = "MMM dd, yyyy";
 
   static String formatDate(DateTime dateTime, {String format = "dd/MM/yyyy"}) {
-    return intl.DateFormat(
-            format, appGlobal<SharedPreferenceHelper>().getLocale)
-        .format(dateTime);
+    return intl.DateFormat(format, appLocal).format(dateTime);
   }
 
   static String intToString(int dateTime, {String format = "dd/MM/yyyy"}) {
@@ -57,7 +56,7 @@ mixin DateTimeHelper {
     final String passDate = DateFormat('dd-MM-yyyy').format(date);
     final DateTime convertPassDate = DateFormat('dd-MM-yyyy').parse(passDate);
     final DateTime now = DateTime.now();
-    final local = appGlobal<SharedPreferenceHelper>().getLocale;
+    final local = appLocal;
     if (now.difference(convertPassDate).inDays > 0) {
       return DateFormat(local == 'en' ? format : 'MMM d, y h:mm a')
           .format(date);

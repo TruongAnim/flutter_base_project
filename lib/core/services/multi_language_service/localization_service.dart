@@ -56,9 +56,8 @@ class LocalizationService extends Translations {
 
   static Locale _getLocaleFromLanguage({String? langCode}) {
     late String lang;
-    if (nullOrEmpty(langCode) &&
-        !nullOrEmpty(appGlobal<SharedPreferenceHelper>().getLocale)) {
-      lang = appGlobal<SharedPreferenceHelper>().getLocale.toString();
+    if (nullOrEmpty(langCode) && !nullOrEmpty(appLocal)) {
+      lang = appLocal.toString();
     } else if (!nullOrEmpty(langCode)) {
       lang = langCode.toString();
     } else {

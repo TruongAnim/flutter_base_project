@@ -3,6 +3,8 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter_base_project/constants/exports.dart';
+import 'package:flutter_base_project/core/global/exports.dart';
+import 'package:flutter_base_project/core/shared_preference/exports.dart';
 import 'package:flutter_base_project/presentation/base_widgets/exports.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +16,10 @@ appPrint(dynamic s) {
   if (kDebugMode) {
     print('AppLog: $s');
   }
+}
+
+get appLocal {
+  return appGlobal<SharedPreferenceHelper>().getLocale;
 }
 
 extension TranslateExtensions on String? {
