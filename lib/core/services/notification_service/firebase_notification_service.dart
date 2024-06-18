@@ -1,7 +1,7 @@
 import 'package:flutter_base_project/core/helper/common_helper.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-mixin NotificationService {
+mixin FirebaseNotificationService {
   static Future<void> init() async {
     // Setup firebase services.
     final FirebaseMessaging messaging = FirebaseMessaging.instance;

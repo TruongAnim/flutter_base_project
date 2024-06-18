@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_base_project/core/global/exports.dart';
 import 'package:flutter_base_project/core/helper/exports.dart';
-import 'package:get_it/get_it.dart';
 
 import '../data_source/dio_client.dart';
 
@@ -51,7 +51,7 @@ class LoggingInterceptor extends InterceptorsWrapper {
         if (err.response!.statusCode! >= 400 &&
             err.response!.statusCode! <= 500 &&
             tokenInvalid == 'jwt expired') {
-          final dio = GetIt.I.get<DioClient>();
+          final dio = appGlobal<DioClient>();
           await dio.refreshTokenExpiration();
           return handler.resolve(await dio.reTry(err.requestOptions));
         }

@@ -1,6 +1,4 @@
-import 'package:flutter_base_project/core/global/exports.dart';
 import 'package:flutter_base_project/core/helper/common_helper.dart';
-import 'package:flutter_base_project/core/shared_preference/exports.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as time_ago;

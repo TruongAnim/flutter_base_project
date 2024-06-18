@@ -24,11 +24,19 @@ class DashboardScreen extends GetView<DashboardController> {
         );
       }),
       bottomNavigationBar: Container(
-        height: 0.1.sh,
+        height: 0.2.sh,
         width: 1.sw,
-        child: ElevatedButton(
-          onPressed: controller.toListPost,
-          child: Text('To list post'),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: controller.toNotificationPage,
+              child: Text('To notification page'),
+            ),
+            ElevatedButton(
+              onPressed: controller.toListPost,
+              child: Text('To list post'),
+            ),
+          ],
         ),
       ),
     );

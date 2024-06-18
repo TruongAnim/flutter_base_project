@@ -23,8 +23,8 @@ Future<void> main() async {
 
   // Init Get it.
   await DiContainer.init();
-  await FirebaseAppCheck.instance.activate();
-  await NotificationService.init();
+  FirebaseAppCheck.instance.activate();
+  FirebaseNotificationService.init();
 
   /// Instance Easy Loading.
   EasyLoading.instance

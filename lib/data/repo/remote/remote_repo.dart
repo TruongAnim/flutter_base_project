@@ -7,7 +7,9 @@ import 'package:flutter_base_project/data/response/exports.dart';
 import '../mapping.dart';
 
 class RemoteRepo with Mapping {
-  late DioClient dio;
+  DioClient dio;
+
+  RemoteRepo(this.dio);
 
   void registerEndPoint<T>(String endPoint) {
     registerMapping<T>(MappingType.remoteEndPoint, endPoint);
@@ -23,10 +25,6 @@ class RemoteRepo with Mapping {
 
   Function getConstructor<T>() {
     return getMapping<T>(MappingType.constructor);
-  }
-
-  void init() {
-    dio = DioClient();
   }
 
   Future<void> paginate<T>({

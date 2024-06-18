@@ -27,4 +27,8 @@ class DashboardController extends GetxController {
   void toListPost() {
     Get.toNamed(BaseRouters.listPost);
   }
+
+  void toNotificationPage() {
+    Get.toNamed(BaseRouters.testNotification);
+  }
 }
