@@ -24,24 +24,31 @@ class DashboardScreen extends GetView<DashboardController> {
         );
       }),
       bottomNavigationBar: Container(
-        height: 0.2.sh,
         width: 1.sw,
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: controller.toNotificationPage,
-              child: Text('To notification page',
-                  style: Get.textTheme.bodyMedium!),
-            ),
-            ElevatedButton(
-              onPressed: controller.toListPost,
-              child: Text(
-                'To list post',
-                style: TextStyle(
-                    color: Get.isDarkMode ? Colors.green : Colors.pink),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: controller.toHighlightPage,
+                child:
+                    Text('To hgihlight page', style: Get.textTheme.bodyMedium!),
               ),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: controller.toNotificationPage,
+                child: Text('To notification page',
+                    style: Get.textTheme.bodyMedium!),
+              ),
+              ElevatedButton(
+                onPressed: controller.toListPost,
+                child: Text(
+                  'To list post',
+                  style: TextStyle(
+                      color: Get.isDarkMode ? Colors.green : Colors.pink),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

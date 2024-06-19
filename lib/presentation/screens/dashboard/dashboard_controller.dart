@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_base_project/config/routes/base_routers.dart';
 import 'package:flutter_base_project/core/global/exports.dart';
 import 'package:flutter_base_project/data/models/exports.dart';
 import 'package:flutter_base_project/data/repo/local/exports.dart';
+import 'package:flutter_base_project/presentation/screens/test_highlight_text.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
@@ -30,5 +32,11 @@ class DashboardController extends GetxController {
 
   void toNotificationPage() {
     Get.toNamed(BaseRouters.testNotification);
+  }
+
+  void toHighlightPage() {
+    print('hello');
+    Navigator.of(Get.context!)
+        .push(MaterialPageRoute(builder: (context) => TestHighlightText()));
   }
 }

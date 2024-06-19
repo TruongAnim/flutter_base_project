@@ -1357,6 +1357,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  simple_highlight_text:
+    dependency: "direct main"
+    description:
+      name: simple_highlight_text
+      sha256: "7aa0d39324275ef5cd46f5dd4c30657c3c8c06ed1138169d6953a9ba30e130af"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   skeletonizer:
     dependency: "direct main"
     description:
