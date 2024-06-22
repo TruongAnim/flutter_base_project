@@ -3,8 +3,7 @@ import 'package:flutter_base_project/data/data_source/dio_client.dart';
 import 'package:flutter_base_project/data/interceptor/logging_interceptor.dart';
 import 'package:flutter_base_project/data/repo/local/exports.dart';
 import 'package:flutter_base_project/data/repo/local_file_repo.dart';
-import 'package:flutter_base_project/data/repo/remote/post_repo.dart';
-import 'package:flutter_base_project/data/repo/remote/remote_repo.dart';
+import 'package:flutter_base_project/data/repo/remote/exports.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,6 +46,7 @@ mixin DiContainer {
     appGlobal.registerSingleton<DioClient>(dio);
     appGlobal.registerSingleton<RemoteRepo>(remoteRepo);
     appGlobal.registerSingleton<PostRepo>(PostRepo(remoteRepo));
+    appGlobal.registerSingleton<FilmRepo>(FilmRepo(remoteRepo));
 
     // Audio service
     appGlobal.registerLazySingleton<AudioService>(() => AudioService());

@@ -4,6 +4,10 @@ import 'package:flutter_base_project/presentation/screens/language/language_bind
 import 'package:flutter_base_project/presentation/screens/language/language_screen.dart';
 import 'package:flutter_base_project/presentation/screens/list_post/list_post_binding.dart';
 import 'package:flutter_base_project/presentation/screens/list_post/list_post_screen.dart';
+import 'package:flutter_base_project/presentation/screens/short_video/short_video_binding.dart';
+import 'package:flutter_base_project/presentation/screens/short_video/short_video_screen.dart';
+import 'package:flutter_base_project/presentation/screens/short_video_preload/short_video_preload_binding.dart';
+import 'package:flutter_base_project/presentation/screens/short_video_preload/short_video_preload_screen.dart';
 import 'package:flutter_base_project/presentation/screens/splash/splash_binding.dart';
 import 'package:flutter_base_project/presentation/screens/splash/splash_screen.dart';
 import 'package:flutter_base_project/presentation/screens/test_nofitication/test_nofitication_binding.dart';
@@ -16,6 +20,8 @@ mixin BaseRouters {
   static const String intro = '/intro';
   static const String dashboard = '/dashboard';
   static const String listPost = '/list-post';
+  static const String shortVideo = '/short-video';
+  static const String shortVideoPreload = '/short-video-preload';
   static const String testNotification = '/test-notification';
 
   static List<GetPage> listPage = [
@@ -43,6 +49,16 @@ mixin BaseRouters {
       name: listPost,
       page: () => const ListPostScreen(),
       binding: ListPostBinding(),
+    ),
+    GetPage(
+      name: shortVideo,
+      page: () => const ShortVideoScreen(),
+      binding: ShortVideoBinding(),
+    ),
+    GetPage(
+      name: shortVideoPreload,
+      page: () => const ShortVideoPreloadScreen(),
+      binding: ShortVideoPreloadBinding(),
     ),
     GetPage(
       name: testNotification,

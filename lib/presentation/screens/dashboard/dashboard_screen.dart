@@ -27,8 +27,19 @@ class DashboardScreen extends GetView<DashboardController> {
         width: 1.sw,
         child: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              ElevatedButton(
+                onPressed: controller.toShortVideoPage,
+                child: Text('To short video page',
+                    style: Get.textTheme.bodyMedium!),
+              ),
+              ElevatedButton(
+                onPressed: controller.toShortVideoPreloadPage,
+                child: Text('To short video preload page',
+                    style: Get.textTheme.bodyMedium!),
+              ),
               ElevatedButton(
                 onPressed: controller.toHighlightPage,
                 child:
