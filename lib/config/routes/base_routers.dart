@@ -6,6 +6,8 @@ import 'package:flutter_base_project/presentation/screens/list_post/list_post_bi
 import 'package:flutter_base_project/presentation/screens/list_post/list_post_screen.dart';
 import 'package:flutter_base_project/presentation/screens/short_video/short_video_binding.dart';
 import 'package:flutter_base_project/presentation/screens/short_video/short_video_screen.dart';
+import 'package:flutter_base_project/presentation/screens/short_video_cache/short_video_cache_binding.dart';
+import 'package:flutter_base_project/presentation/screens/short_video_cache/short_video_cache_screen.dart';
 import 'package:flutter_base_project/presentation/screens/short_video_preload/short_video_preload_binding.dart';
 import 'package:flutter_base_project/presentation/screens/short_video_preload/short_video_preload_screen.dart';
 import 'package:flutter_base_project/presentation/screens/splash/splash_binding.dart';
@@ -22,6 +24,7 @@ mixin BaseRouters {
   static const String listPost = '/list-post';
   static const String shortVideo = '/short-video';
   static const String shortVideoPreload = '/short-video-preload';
+  static const String shortVideoCache = '/short-video-cache';
   static const String testNotification = '/test-notification';
 
   static List<GetPage> listPage = [
@@ -59,6 +62,11 @@ mixin BaseRouters {
       name: shortVideoPreload,
       page: () => const ShortVideoPreloadScreen(),
       binding: ShortVideoPreloadBinding(),
+    ),
+    GetPage(
+      name: shortVideoCache,
+      page: () => const ShortVideoCacheScreen(),
+      binding: ShortVideoCacheBinding(),
     ),
     GetPage(
       name: testNotification,

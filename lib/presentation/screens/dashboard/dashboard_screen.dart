@@ -41,6 +41,11 @@ class DashboardScreen extends GetView<DashboardController> {
                     style: Get.textTheme.bodyMedium!),
               ),
               ElevatedButton(
+                onPressed: controller.toShortVideoCache,
+                child: Text('To short video cache page',
+                    style: Get.textTheme.bodyMedium!),
+              ),
+              ElevatedButton(
                 onPressed: controller.toHighlightPage,
                 child:
                     Text('To hgihlight page', style: Get.textTheme.bodyMedium!),
