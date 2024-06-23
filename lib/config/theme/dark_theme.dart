@@ -6,7 +6,7 @@ ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.BACK_GROUND,
   fontFamily: 'Roboto',
   primaryColor: AppColors.PRIMARY_1, // Màu chủ đạo
-  brightness: Brightness.light,
+  brightness: Brightness.dark,
   hintColor: Colors.grey,
   pageTransitionsTheme: const PageTransitionsTheme(builders: {
     TargetPlatform.android: ZoomPageTransitionsBuilder(),
@@ -16,13 +16,6 @@ ThemeData darkTheme = ThemeData(
   radioTheme: _radioThemeData(),
   bottomSheetTheme: _bottomSheetThemeData(),
   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  colorScheme: ColorScheme.fromSwatch()
-      .copyWith(
-        secondary: Colors.red,
-      )
-      .copyWith(
-        background: AppColors.BACK_GROUND,
-      ),
   filledButtonTheme: _filledButtonThemeData(),
   // Kiểu văn bản cho nút RaisedButton
   iconButtonTheme: _iconButtonThemeData(),
@@ -76,10 +69,10 @@ ThemeData darkTheme = ThemeData(
 
     // Cho nội dung bình thường và mặc định.
     bodyMedium: TextStyle(
-      fontSize: 12.sp,
-      fontStyle: FontStyle.normal,
-      fontWeight: FontWeight.normal,
-    ),
+        fontSize: 12.sp,
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.normal,
+        color: Colors.red),
     bodySmall: TextStyle(
       fontSize: 10.sp,
       fontStyle: FontStyle.normal,

@@ -90,17 +90,16 @@ class MyApp extends StatelessWidget {
             getPages: AppPages.list,
             debugShowCheckedModeBanner: false,
             theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: ThemeMode.system,
             localizationsDelegates: AppConstants.localizationsDelegates,
             supportedLocales: LocalizationService.locales,
             builder: EasyLoading.init(
               builder: (context, widget) {
-                return Theme(
-                  data: lightTheme,
-                  child: MediaQuery(
-                    data: MediaQuery.of(context).copyWith(
-                        boldText: false, textScaler: TextScaler.noScaling),
-                    child: widget!,
-                  ),
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                      boldText: false, textScaler: TextScaler.noScaling),
+                  child: widget!,
                 );
               },
             ),

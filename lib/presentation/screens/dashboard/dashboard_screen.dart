@@ -30,11 +30,16 @@ class DashboardScreen extends GetView<DashboardController> {
           children: [
             ElevatedButton(
               onPressed: controller.toNotificationPage,
-              child: Text('To notification page'),
+              child: Text('To notification page',
+                  style: Get.textTheme.bodyMedium!),
             ),
             ElevatedButton(
               onPressed: controller.toListPost,
-              child: Text('To list post'),
+              child: Text(
+                'To list post',
+                style: TextStyle(
+                    color: Get.isDarkMode ? Colors.green : Colors.pink),
+              ),
             ),
           ],
         ),

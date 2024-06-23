@@ -25,13 +25,6 @@ ThemeData lightTheme = ThemeData(
   radioTheme: _radioThemeData(),
   bottomSheetTheme: _bottomSheetThemeData(),
   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  colorScheme: ColorScheme.fromSwatch()
-      .copyWith(
-        secondary: Colors.red,
-      )
-      .copyWith(
-        background: AppColors.BACK_GROUND,
-      ),
   filledButtonTheme: _filledButtonThemeData(),
   iconButtonTheme: _iconButtonThemeData(),
   elevatedButtonTheme: _elevatedButtonThemeData(),
@@ -85,6 +78,7 @@ ThemeData lightTheme = ThemeData(
       fontSize: 12.sp,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.normal,
+      color: Colors.yellow,
     ),
     bodySmall: TextStyle(
       fontSize: 10.sp,
