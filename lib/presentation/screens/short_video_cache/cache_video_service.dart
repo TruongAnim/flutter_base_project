@@ -3,37 +3,30 @@ import 'package:video_player/video_player.dart';
 class LoadVideoService {
   final int maxCacheSize;
   final Map<String, VideoPlayerController> _cache = {};
-  final List<String> _cacheOrder = [];
 
-  LoadVideoService({this.maxCacheSize = 3});
+  LoadVideoService({this.maxCacheSize = 5});
 
-  Future<VideoPlayerController> loadVideo(String url) async {
+  VideoPlayerController loadVideo(String url) {
+    print('truong load ${url}');
+    print('truong check 1 ${_cache.containsKey(url)}');
     if (_cache.containsKey(url)) {
-      _cacheOrder.remove(url);
-      _cacheOrder.add(url);
       return _cache[url]!;
-    }
-
-    if (_cache.length >= maxCacheSize) {
-      String oldestUrl = _cacheOrder.removeAt(0);
-      _cache[oldestUrl]!.dispose();
-      _cache.remove(oldestUrl);
     }
 
     VideoPlayerController controller =
         VideoPlayerController.networkUrl(Uri.parse(url));
-    await controller.initialize();
+    print('truong inti ${url}');
+    controller.initialize();
     _cache[url] = controller;
-    _cacheOrder.add(url);
-
+    print('truong check 2 ${_cache.containsKey(url)}');
     return controller;
   }
 
   void dispose() {
+    print('truong dispose');
     for (var controller in _cache.values) {
       controller.dispose();
     }
     _cache.clear();
-    _cacheOrder.clear();
   }
 }

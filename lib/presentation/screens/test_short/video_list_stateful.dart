@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/core/global/di_container.dart';
-import 'package:flutter_base_project/data/models/film_model.dart';
-import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 import 'cache_video_service.dart';
-import 'short_video_cache_controller.dart';
 
 class VideoPageView extends StatefulWidget {
   @override
@@ -13,12 +9,24 @@ class VideoPageView extends StatefulWidget {
 }
 
 class _VideoPageViewState extends State<VideoPageView> {
-  ShortVideoCacheController shortController =
-      Get.find<ShortVideoCacheController>();
-
-  final LoadVideoService _videoService = appGlobal<LoadVideoService>();
   late PageController _pageController;
-  late final List<FilmModel> videos;
+  late final List<String> videos = [
+    'https://gcdn.dramashort.tv/videos/2ca569e35cc18ed5362b4d707f33d516/index.m3u8',
+    'https://gcdn.dramashort.tv/videos/8f39f07c03b65461a5dfed9867c3165a/index.m3u8',
+    'https://gcdn.dramashort.tv/videos/08bb4dab98c7657354c651fe487e2283/index.m3u8',
+    'https://gcdn.dramashort.tv/videos/96f922da8695ae7e5291cd898c788431/index.m3u8',
+    'https://gcdn.dramashort.tv/videos/ba58e64f12fcfabdfd28545d874733cb/index.m3u8',
+    'https://gcdn.dramashort.tv/videos/7f8101c695afc499dd41f12a2bfce817/index.m3u8',
+    'https://gcdn.dramashort.tv/videos/bbf56198d8bff70387591117ef4a69fe/index.m3u8',
+    'https://gcdn.dramashort.tv/videos/ac0bf00a1c36943d843f3b28d072fd28/index.m3u8',
+    'https://assets.mixkit.co/videos/preview/mixkit-different-types-of-fresh-fruit-in-presentation-video-42941-large.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-stunning-sunset-seen-from-the-sea-4119-large.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-meadow-surrounded-by-trees-on-a-sunny-afternoon-40647-large.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-fruit-texture-in-a-humid-environment-42958-large.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-close-up-shot-of-a-turntable-playing-a-record-42920-large.mp4',
+  ];
+  final LoadVideoService _videoService = LoadVideoService();
   bool isPlaying = false;
   int _currentIndex = 0;
   VideoPlayerController? _currentController;
@@ -26,7 +34,9 @@ class _VideoPageViewState extends State<VideoPageView> {
   @override
   void initState() {
     super.initState();
-    videos = shortController.listFilm;
+    for (final item in videos.take(3)) {
+      _videoService.addVideo(item);
+    }
     _pageController = PageController();
     _loadCurrentVideo();
   }
@@ -35,7 +45,6 @@ class _VideoPageViewState extends State<VideoPageView> {
     print(
         'truong isPlaying $isPlaying ${_currentController!.value.isInitialized}');
     if (_currentController!.value.isInitialized && !isPlaying) {
-      _currentController!.play();
       isPlaying = true;
       setState(() {});
       print('truong 1 ${_currentController!.value.duration}');
@@ -43,21 +52,22 @@ class _VideoPageViewState extends State<VideoPageView> {
   }
 
   Future<void> _loadCurrentVideo() async {
-    _currentController =
-        _videoService.loadVideo(videos[_currentIndex].episode?.link ?? '');
-    _currentController!.addListener(videoListener);
+    _currentController = _videoService.getVideo(videos[_currentIndex]);
+    _videoService.getStream(videos[_currentIndex]).listen((i) {
+      print('truong event $i');
+      videoListener();
+    });
   }
 
   void _onPageChanged(int index) {
     setState(() {
       _currentIndex = index;
-      _currentController!.pause();
-      isPlaying = false;
-      _currentController!.removeListener(videoListener);
-      _currentController =
-          _videoService.loadVideo(videos[_currentIndex].episode?.link ?? '');
-      _currentController!.addListener(videoListener);
-      _currentController!.play();
+      _videoService.nextTo(videos[index]);
+      _currentController = _videoService.getVideo(videos[_currentIndex]);
+      _videoService.getStream(videos[_currentIndex]).listen((i) {
+        print('truong event 2 $i');
+        videoListener();
+      });
       setState(() {});
       print('truong 2 ${_currentController!.value.duration}');
     });
@@ -107,12 +117,10 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   void initState() {
     super.initState();
-    widget.controller.play();
   }
 
   @override
   void dispose() {
-    widget.controller.dispose();
     super.dispose();
   }
 
