@@ -14,6 +14,8 @@ import 'package:flutter_base_project/presentation/screens/splash/splash_binding.
 import 'package:flutter_base_project/presentation/screens/splash/splash_screen.dart';
 import 'package:flutter_base_project/presentation/screens/test_nofitication/test_nofitication_binding.dart';
 import 'package:flutter_base_project/presentation/screens/test_nofitication/test_nofitication_screen.dart';
+import 'package:flutter_base_project/presentation/screens/test_short/test_nofitication_binding.dart';
+import 'package:flutter_base_project/presentation/screens/test_short/video_list_stateful.dart';
 import 'package:get/get.dart';
 
 mixin BaseRouters {
@@ -26,6 +28,7 @@ mixin BaseRouters {
   static const String shortVideoPreload = '/short-video-preload';
   static const String shortVideoCache = '/short-video-cache';
   static const String testNotification = '/test-notification';
+  static const String testShort = '/test-short';
 
   static List<GetPage> listPage = [
     GetPage(
@@ -72,6 +75,11 @@ mixin BaseRouters {
       name: testNotification,
       page: () => const TestNotificationScreen(),
       binding: TestNotificationBinding(),
+    ),
+    GetPage(
+      name: testShort,
+      page: () => const TestShortScreen(),
+      binding: TestShortBinding(),
     ),
   ];
 }

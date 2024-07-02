@@ -385,6 +385,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.9.3+1"
+  fimber:
+    dependency: "direct main"
+    description:
+      name: fimber
+      sha256: "42fcfa33acd43556c1e7ebfc12c2b03893418bc04a07931368c3573e228af2f0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   firebase_analytics:
     dependency: "direct main"
     description:
@@ -1262,7 +1270,7 @@ packages:
     source: hosted
     version: "1.5.1"
   provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: provider
       sha256: c8a055ee5ce3fd98d6fc872478b03823ffdb448699c6ebdbbc71d59b596fd48c

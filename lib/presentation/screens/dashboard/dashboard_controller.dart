@@ -54,4 +54,8 @@ class DashboardController extends GetxController {
   void toShortVideoCache() {
     Get.toNamed(BaseRouters.shortVideoCache);
   }
+
+  void toShort() {
+    Get.toNamed(BaseRouters.testShort);
+  }
 }

@@ -1,76 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/presentation/screens/test_short/custom_video_progress_indicator.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 import 'cache_video_service.dart';
 
+class TestShortScreen extends StatelessWidget {
+  const TestShortScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    print('ShortVideoService hello');
+    return ChangeNotifierProvider(
+      create: (_) => LoadVideoService(),
+      builder: (context, child) {
+        return VideoPageView();
+      },
+    );
+  }
+}
+
 class VideoPageView extends StatefulWidget {
+  const VideoPageView({super.key});
+
   @override
   _VideoPageViewState createState() => _VideoPageViewState();
 }
 
-class _VideoPageViewState extends State<VideoPageView> {
+class _VideoPageViewState extends State<VideoPageView>
+    with WidgetsBindingObserver {
   late PageController _pageController;
-  late final List<String> videos = [
-    'https://gcdn.dramashort.tv/videos/2ca569e35cc18ed5362b4d707f33d516/index.m3u8',
-    'https://gcdn.dramashort.tv/videos/8f39f07c03b65461a5dfed9867c3165a/index.m3u8',
-    'https://gcdn.dramashort.tv/videos/08bb4dab98c7657354c651fe487e2283/index.m3u8',
-    'https://gcdn.dramashort.tv/videos/96f922da8695ae7e5291cd898c788431/index.m3u8',
-    'https://gcdn.dramashort.tv/videos/ba58e64f12fcfabdfd28545d874733cb/index.m3u8',
-    'https://gcdn.dramashort.tv/videos/7f8101c695afc499dd41f12a2bfce817/index.m3u8',
-    'https://gcdn.dramashort.tv/videos/bbf56198d8bff70387591117ef4a69fe/index.m3u8',
-    'https://gcdn.dramashort.tv/videos/ac0bf00a1c36943d843f3b28d072fd28/index.m3u8',
-    'https://assets.mixkit.co/videos/preview/mixkit-different-types-of-fresh-fruit-in-presentation-video-42941-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-stunning-sunset-seen-from-the-sea-4119-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-meadow-surrounded-by-trees-on-a-sunny-afternoon-40647-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-fruit-texture-in-a-humid-environment-42958-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-close-up-shot-of-a-turntable-playing-a-record-42920-large.mp4',
-  ];
-  final LoadVideoService _videoService = LoadVideoService();
-  bool isPlaying = false;
-  int _currentIndex = 0;
-  VideoPlayerController? _currentController;
+  late LoadVideoService _videoService;
 
   @override
   void initState() {
     super.initState();
-    for (final item in videos.take(3)) {
-      _videoService.addVideo(item);
-    }
+    _videoService = context.read<LoadVideoService>();
     _pageController = PageController();
-    _loadCurrentVideo();
-  }
-
-  void videoListener() {
-    print(
-        'truong isPlaying $isPlaying ${_currentController!.value.isInitialized}');
-    if (_currentController!.value.isInitialized && !isPlaying) {
-      isPlaying = true;
-      setState(() {});
-      print('truong 1 ${_currentController!.value.duration}');
-    }
-  }
-
-  Future<void> _loadCurrentVideo() async {
-    _currentController = _videoService.getVideo(videos[_currentIndex]);
-    _videoService.getStream(videos[_currentIndex]).listen((i) {
-      print('truong event $i');
-      videoListener();
+    _videoService.nextTo(0);
+    WidgetsBinding.instance.addObserver(this);
+    _videoService.playerValueStream.listen((VideoPlayerValue v) {
+      print(('truong ', v.isPlaying));
     });
   }
 
   void _onPageChanged(int index) {
-    setState(() {
-      _currentIndex = index;
-      _videoService.nextTo(videos[index]);
-      _currentController = _videoService.getVideo(videos[_currentIndex]);
-      _videoService.getStream(videos[_currentIndex]).listen((i) {
-        print('truong event 2 $i');
-        videoListener();
-      });
-      setState(() {});
-      print('truong 2 ${_currentController!.value.duration}');
-    });
+    _videoService.nextTo(index);
   }
 
   @override
@@ -78,36 +53,59 @@ class _VideoPageViewState extends State<VideoPageView> {
     print('truong dispose');
     _videoService.dispose();
     _pageController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print('AppLifecycleState: $state');
+    // Handle app lifecycle changes here
+    switch (state) {
+      case AppLifecycleState.inactive:
+        _videoService.pauseByAppState();
+        print('App is inactive');
+        break;
+      case AppLifecycleState.paused:
+        print('App is paused');
+        break;
+      case AppLifecycleState.resumed:
+        _videoService.resumeByAppState();
+        print('App is resumed');
+        break;
+      case AppLifecycleState.detached:
+        print('App is detached');
+        break;
+      case AppLifecycleState.hidden:
+        print('App is hidden');
+        _videoService.hidden();
+      // TODO: Handle this case.
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView.builder(
-        controller: _pageController,
-        scrollDirection: Axis.vertical,
-        onPageChanged: _onPageChanged,
-        itemCount: videos.length,
-        itemBuilder: (context, index) {
-          if (index == _currentIndex) {
-            return _currentController != null && isPlaying
-                ? VideoPlayerWidget(controller: _currentController!)
-                : Center(child: CircularProgressIndicator());
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
+      body: Consumer<LoadVideoService>(
+        builder: (context, service, _) => PageView.builder(
+          controller: _pageController,
+          scrollDirection: Axis.vertical,
+          onPageChanged: _onPageChanged,
+          itemCount: service.videos.length,
+          itemBuilder: (context, index) {
+            return VideoPlayerWidget(index: index);
+          },
+        ),
       ),
     );
   }
 }
 
 class VideoPlayerWidget extends StatefulWidget {
-  final VideoPlayerController controller;
+  final int index;
 
-  const VideoPlayerWidget({Key? key, required this.controller})
-      : super(key: key);
+  const VideoPlayerWidget({super.key, required this.index});
 
   @override
   _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
@@ -126,8 +124,46 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.controller.value.isInitialized
-        ? VideoPlayer(widget.controller)
-        : Center(child: CircularProgressIndicator());
+    return Consumer<LoadVideoService>(builder: (context, service, _) {
+      if (service.currentIndex != widget.index) {
+        return Center(child: CircularProgressIndicator());
+      }
+      if (service.isLoading) {
+        return const Center(
+          child: Text('Loading video'),
+        );
+      }
+      print('truong rebuild');
+      return Stack(
+        children: [
+          VideoPlayer(service.getVideo()),
+          Positioned.fill(
+            child: Center(
+              child: GestureDetector(
+                  onTap: () {
+                    if (service.isPlaying) {
+                      service.pause();
+                    } else {
+                      service.resume();
+                    }
+                  },
+                  child: Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.white.withOpacity(0.2),
+                      child: Icon(
+                          service.isPlaying ? Icons.pause : Icons.play_arrow))),
+            ),
+          ),
+          Positioned(
+            bottom: 30,
+            child: Container(
+                width: 360,
+                height: 20,
+                child: CustomVideoProgressIndicator(service.getVideo())),
+          ),
+        ],
+      );
+    });
   }
 }
