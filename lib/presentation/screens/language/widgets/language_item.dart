@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_project/constants/exports.dart';
 import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:flutter_base_project/presentation/base_widgets/exports.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../language_controller.dart';
@@ -25,12 +24,12 @@ class LanguageItem extends GetView<LanguageController> {
           });
         },
         child: Container(
-          width: 1.sw,
-          height: 64.h,
+          width: SizeUtil.screenWidth,
+          height: 64,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: isSelected ? AppColors.WHITE : AppColors.BACK_GROUND,
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(10),
             boxShadow: isSelected
                 ? [
                     BoxShadow(
@@ -42,23 +41,24 @@ class LanguageItem extends GetView<LanguageController> {
           ),
           child: Row(
             children: [
-              spaceWidth(15.w),
+              spaceWidth(15),
               ClipRRect(
-                borderRadius: BorderRadius.circular(25.h),
+                borderRadius: BorderRadius.circular(25),
                 child: ImageWidget(
                   lang.imagePath,
-                  height: 40.h,
-                  width: 40.h,
+                  height: 40,
+                  width: 40,
                 ),
               ),
-              spaceWidth(15.w),
+              spaceWidth(15),
               Text(
                 lang.title,
-                style: TextStyle(fontSize: 16.sp, color: AppColors.Neutral_8),
+                style:
+                    const TextStyle(fontSize: 16, color: AppColors.Neutral_8),
               ),
               const Spacer(),
-              CircleCheckbox(isCheck: isSelected, size: 24.w),
-              spaceWidth(15.w),
+              CircleCheckbox(isCheck: isSelected, size: 24),
+              spaceWidth(15),
             ],
           ),
         ),
@@ -86,7 +86,7 @@ class CircleCheckbox extends StatelessWidget {
             width: size,
             height: size,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.h),
+              borderRadius: BorderRadius.circular(20),
               border: Border.all(color: AppColors.Neutral_78, width: 2),
             ),
           );

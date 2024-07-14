@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/constants/exports.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_base_project/core/helper/exports.dart';
 
 class RoundButton extends StatelessWidget {
   const RoundButton({
@@ -67,7 +67,7 @@ class RoundButton extends StatelessWidget {
             vertical: paddingV ?? 0, horizontal: paddingH ?? 0),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(height ?? 0.1.sh),
+          borderRadius: BorderRadius.circular(height ?? 0.1 * sh),
           border:
               isFill ? null : Border.all(width: 2, color: AppColors.PRIMARY_1),
           gradient: getGradient(),
@@ -90,7 +90,7 @@ class RoundButton extends StatelessWidget {
                           style: TextStyle(
                             color:
                                 isFill ? AppColors.WHITE : AppColors.PRIMARY_1,
-                            fontSize: fontSize ?? 16.sp,
+                            fontSize: fontSize ?? 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 mixin DataUtils {
-  static Future<List<Map<String, dynamic>>> listStringToMap(String data) async {
+  static List<Map<String, dynamic>> listStringToMap(String data) {
     return List<Map<String, dynamic>>.from(json.decode(data));
   }
 

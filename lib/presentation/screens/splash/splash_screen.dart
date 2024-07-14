@@ -1,7 +1,7 @@
 import 'package:flutter_base_project/constants/exports.dart';
+import 'package:flutter_base_project/core/helper/size_util.dart';
 import 'package:flutter_base_project/presentation/base_widgets/image_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'splash_controller.dart';
@@ -25,9 +25,10 @@ class SplashScreen extends GetView<SplashController> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(0.2.sh * 0.2),
-                      child: ImageWidget(AppImages.logoApp, height: 0.2.sh),
-                    ).marginOnly(bottom: 32.h),
+                      borderRadius: BorderRadius.circular(20),
+                      child: ImageWidget(AppImages.logoApp,
+                          height: 0.2 * SizeUtil.screenWidth),
+                    ).marginOnly(bottom: 32),
                     ImageWidget(AppImages.appName)
                   ],
                 ),
@@ -37,7 +38,7 @@ class SplashScreen extends GetView<SplashController> {
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 0.2.sw, vertical: 0.1.sh),
+        padding: const EdgeInsets.symmetric(horizontal: 0.2, vertical: 0.1),
         child: const LinearProgressIndicator(
           backgroundColor: AppColors.WIDGET_BG,
           valueColor: AlwaysStoppedAnimation<Color>(AppColors.PRIMARY_1),

@@ -19,7 +19,7 @@ class AppController extends GetxController {
   }
 
   void _setup() async {
-    bool isFirstTimeOpen = appGlobal<SharedPreferenceHelper>().getIsFirstOpen;
+    bool isFirstTimeOpen = appGlobal<SharedPrefsHelper>().getIsFirstOpen;
     if (isFirstTimeOpen) {
       appPrint('Init Data: ${DateTime.now()}');
       await _initData();

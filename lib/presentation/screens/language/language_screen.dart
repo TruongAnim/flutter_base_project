@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_project/constants/exports.dart';
 import 'package:flutter_base_project/presentation/base_widgets/exports.dart';
 import 'package:flutter_base_project/presentation/custom_widgets/exports.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -25,10 +24,11 @@ class LanguageScreen extends GetView<LanguageController> {
             // spaceHeight(10.h),
             Expanded(
               child: ListView.separated(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 itemCount: controller.languages.length,
                 separatorBuilder: (_, __) {
-                  return Gap(10.h);
+                  return const Gap(10);
                 },
                 itemBuilder: (context, index) {
                   return LanguageItem(index: index);
@@ -36,13 +36,13 @@ class LanguageScreen extends GetView<LanguageController> {
               ),
             ),
           ],
-        ).marginOnly(bottom: 48.h),
+        ).marginOnly(bottom: 48),
         bottomNavigationBar: Obx(() => Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               child: RoundButton(
                 isActive: controller.isIntro.value == true ||
                     controller.oldSelectedIndex != controller.selectedIndex,
-                height: 44.h,
+                height: 44,
                 title: controller.isIntro.value == true ? 'next'.tr : "save".tr,
                 callback: controller.onSelectLanguageChange,
               ),

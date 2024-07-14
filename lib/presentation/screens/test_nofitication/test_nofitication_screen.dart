@@ -1,6 +1,6 @@
 import 'package:flutter_base_project/constants/exports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -13,18 +13,18 @@ class TestNotificationScreen extends GetView<TestNotificationController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.BACK_GROUND,
-      body: Container(
-        height: 1.sh,
+      body: SizedBox(
+        height: sh,
         child: Column(
           children: [
-            MaxGap(40.h),
+            const MaxGap(40),
             ElevatedButton(
               onPressed: controller.requestPermission,
-              child: Text('Request permission'),
+              child: const Text('Request permission'),
             ),
             ElevatedButton(
               onPressed: controller.showNoti,
-              child: Text('Show noti'),
+              child: const Text('Show noti'),
             ),
           ],
         ),

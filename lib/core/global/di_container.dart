@@ -1,10 +1,11 @@
+import 'package:flutter_base_project/core/helper/device_util.dart';
+import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:flutter_base_project/core/services/exports.dart';
 import 'package:flutter_base_project/data/data_source/dio_client.dart';
 import 'package:flutter_base_project/data/interceptor/logging_interceptor.dart';
 import 'package:flutter_base_project/data/repo/local/exports.dart';
 import 'package:flutter_base_project/data/repo/local_file_repo.dart';
 import 'package:flutter_base_project/data/repo/remote/exports.dart';
-import 'package:flutter_base_project/presentation/screens/short_video_cache/cache_video_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,7 @@ final appGlobal = GetIt.instance;
 mixin DiContainer {
   static late SharedPreferences sharedPreferences;
   static Future<void> init() async {
+    DeviceUtil.initialize();
     // Local notification
     LocalNotificationService localNotificationService =
         LocalNotificationService();
@@ -26,8 +28,8 @@ mixin DiContainer {
 
     // Share preference
     sharedPreferences = await SharedPreferences.getInstance();
-    appGlobal.registerLazySingleton<SharedPreferenceHelper>(
-        () => SharedPreferenceHelper());
+    appGlobal
+        .registerLazySingleton<SharedPrefsHelper>(() => SharedPrefsHelper());
 
     appGlobal.registerSingleton<LoggingInterceptor>(LoggingInterceptor());
     LocalRepo localRepo = LocalRepo();
@@ -55,9 +57,5 @@ mixin DiContainer {
     // Notification service
     appGlobal
         .registerSingleton<LocalNotificationService>(localNotificationService);
-
-    // Cache content
-    appGlobal
-        .registerSingleton<LoadVideoService>(LoadVideoService(maxCacheSize: 5));
   }
 }

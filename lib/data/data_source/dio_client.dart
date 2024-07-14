@@ -20,7 +20,7 @@ class DioClient {
   /// Init dio.
   ///
   void _init() {
-    final String jwtToken = appGlobal.get<SharedPreferenceHelper>().getJwtToken;
+    final String jwtToken = appGlobal.get<SharedPrefsHelper>().getJwtToken;
 
     dio = Dio();
     dio!
@@ -39,7 +39,7 @@ class DioClient {
   /// Refresh token.
   ///
   Future<void> refreshToken() async {
-    final String jwtToken = appGlobal.get<SharedPreferenceHelper>().getJwtToken;
+    final String jwtToken = appGlobal.get<SharedPrefsHelper>().getJwtToken;
     dio!.options.headers = {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Bearer $jwtToken'

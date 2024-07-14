@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base_project/constants/exports.dart';
 import 'package:flutter_base_project/core/helper/exports.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../base_widgets/exports.dart';
 
@@ -31,10 +30,10 @@ class CustomAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 1.sw,
-      height: height ?? 44.h,
+      width: SizeUtil.screenWidth,
+      height: height ?? SizeUtil.defaultAppbarH,
       margin: includeStatusBar
-          ? EdgeInsets.only(top: SizeUtil.statusBarHeight())
+          ? EdgeInsets.only(top: SizeUtil.statusBarHeight)
           : null,
       decoration: BoxDecoration(
         color: AppColors.WHITE,
@@ -54,9 +53,9 @@ class CustomAppbar extends StatelessWidget {
             onTap: onBack,
             child: Container(
               alignment: Alignment.center,
-              width: 0.17.sw,
+              width: 0.17 * SizeUtil.screenWidth,
               child: isShowBack
-                  ? ImageWidget(icBack, width: 24.h, height: 24.h)
+                  ? ImageWidget(icBack, width: 24, height: 24)
                   : null,
             ),
           ),
@@ -65,18 +64,18 @@ class CustomAppbar extends StatelessWidget {
               textAlign: TextAlign.center,
               title,
               maxLines: 1,
-              stepGranularity: 1.sp,
-              minFontSize: 6.sp,
-              style: TextStyle(
+              stepGranularity: 1,
+              minFontSize: 6,
+              style: const TextStyle(
                 color: AppColors.Neutral_8,
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
           Container(
             alignment: Alignment.center,
-            width: 0.17.sw,
+            width: 0.17 * SizeUtil.screenWidth,
             child: trailing,
           ),
         ],

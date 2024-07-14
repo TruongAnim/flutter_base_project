@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../global/exports.dart';
 import 'preferences.dart';
 
-class SharedPreferenceHelper {
+class SharedPrefsHelper {
   // shared pref instance
   final SharedPreferences _sharedPreference = DiContainer.sharedPreferences;
 

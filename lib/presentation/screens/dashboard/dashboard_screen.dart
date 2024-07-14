@@ -1,6 +1,6 @@
 import 'package:flutter_base_project/constants/exports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:get/get.dart';
 
 import 'dashboard_controller.dart';
@@ -14,7 +14,7 @@ class DashboardScreen extends GetView<DashboardController> {
       backgroundColor: AppColors.BACK_GROUND,
       body: Obx(() {
         if (controller.isLoading.isTrue) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
         return ListView.builder(
           itemCount: controller.listProducts.length,
@@ -23,8 +23,8 @@ class DashboardScreen extends GetView<DashboardController> {
           },
         );
       }),
-      bottomNavigationBar: Container(
-        width: 1.sw,
+      bottomNavigationBar: SizedBox(
+        width: SizeUtil.screenWidth,
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -48,11 +48,6 @@ class DashboardScreen extends GetView<DashboardController> {
               ElevatedButton(
                 onPressed: controller.toShort,
                 child: Text('To short test', style: Get.textTheme.bodyMedium!),
-              ),
-              ElevatedButton(
-                onPressed: controller.toHighlightPage,
-                child:
-                    Text('To hgihlight page', style: Get.textTheme.bodyMedium!),
               ),
               ElevatedButton(
                 onPressed: controller.toNotificationPage,

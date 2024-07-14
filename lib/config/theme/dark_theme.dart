@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/constants/exports.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.BACK_GROUND,
@@ -25,56 +24,56 @@ ThemeData darkTheme = ThemeData(
   textButtonTheme: _textButtonThemeData(),
   // Kiểu văn bản cho nút OutlinedButton
   outlinedButtonTheme: _outlineButtonThemData(),
-  textTheme: TextTheme(
+  textTheme: const TextTheme(
     // Các các tiêu đề rất lớn.
     displayLarge: TextStyle(
-      fontSize: 30.sp,
+      fontSize: 30,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.bold,
     ),
     displayMedium: TextStyle(
-      fontSize: 24.sp,
+      fontSize: 24,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.bold,
     ),
     displaySmall: TextStyle(
-      fontSize: 22.sp,
+      fontSize: 22,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.bold,
     ),
 
     // Cho các label của button. label của input
     labelLarge: TextStyle(
-      fontSize: 20.sp,
+      fontSize: 20,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w600,
     ),
     labelMedium: TextStyle(
-      fontSize: 18.sp,
+      fontSize: 18,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w600,
     ),
     labelSmall: TextStyle(
-      fontSize: 16.sp,
+      fontSize: 16,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w600,
     ),
 
     // Phần nội dung.
     bodyLarge: TextStyle(
-      fontSize: 14.sp,
+      fontSize: 14,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.normal,
     ),
 
     // Cho nội dung bình thường và mặc định.
     bodyMedium: TextStyle(
-        fontSize: 12.sp,
+        fontSize: 12,
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.normal,
         color: Colors.red),
     bodySmall: TextStyle(
-      fontSize: 10.sp,
+      fontSize: 10,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.normal,
     ),
@@ -107,7 +106,7 @@ IconButtonThemeData _iconButtonThemeData() {
 RadioThemeData _radioThemeData() {
   return RadioThemeData(
     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+    fillColor: WidgetStateProperty.resolveWith<Color>((states) {
       return AppColors.PRIMARY_1;
     }),
     visualDensity: VisualDensity.comfortable,
@@ -172,26 +171,26 @@ ButtonStyle _buttonStyle({
   Color? textColor,
 }) {
   return ButtonStyle(
-    backgroundColor: MaterialStateProperty.all(backgroundColor),
-    foregroundColor: MaterialStateProperty.all(textColor),
-    elevation: MaterialStateProperty.all(elevation ?? 0.0),
-    overlayColor: MaterialStateProperty.all(Colors.transparent),
-    textStyle: MaterialStatePropertyAll(TextStyle(
-      fontSize: 18.sp,
+    backgroundColor: WidgetStateProperty.all(backgroundColor),
+    foregroundColor: WidgetStateProperty.all(textColor),
+    elevation: WidgetStateProperty.all(elevation ?? 0.0),
+    overlayColor: WidgetStateProperty.all(Colors.transparent),
+    textStyle: const WidgetStatePropertyAll(TextStyle(
+      fontSize: 18,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w600,
     )),
-    padding: const MaterialStatePropertyAll(
+    padding: const WidgetStatePropertyAll(
       EdgeInsets.symmetric(
         vertical: 12,
         horizontal: 24,
       ),
     ),
-    shape: MaterialStatePropertyAll(
+    shape: WidgetStatePropertyAll(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50),
       ),
     ),
-    side: MaterialStatePropertyAll(borderSide),
+    side: WidgetStatePropertyAll(borderSide),
   );
 }

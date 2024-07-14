@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base_project/firebase_options.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'config/routes/exports.dart';
 import 'config/theme/exports.dart';
 import 'constants/exports.dart';
 import 'core/global/exports.dart';
+import 'core/helper/size_util.dart';
 import 'core/services/exports.dart';
 
 Future<void> main() async {
@@ -68,44 +68,36 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      ensureScreenSize: true,
-      minTextAdapt: true,
-      splitScreenMode: true,
-      designSize: const Size(375, 812),
-      useInheritedMediaQuery: true,
-      builder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
-          child: GetMaterialApp(
-            initialRoute: BaseRouters.splash,
-            initialBinding: AppBinding(),
-            locale: LocalizationService.locale,
-            fallbackLocale: LocalizationService.fallbackLocale,
-            translations: LocalizationService(),
-            defaultTransition: Transition.leftToRight,
-            transitionDuration: const Duration(),
-            getPages: AppPages.list,
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.light,
-            darkTheme: AppTheme.dark,
-            themeMode: ThemeMode.system,
-            localizationsDelegates: AppConstants.localizationsDelegates,
-            supportedLocales: LocalizationService.locales,
-            builder: EasyLoading.init(
-              builder: (context, widget) {
-                return MediaQuery(
-                  data: MediaQuery.of(context).copyWith(
-                      boldText: false, textScaler: TextScaler.noScaling),
-                  child: widget!,
-                );
-              },
-            ),
-          ),
-        );
+    SizeUtil.initialize(context);
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
       },
+      child: GetMaterialApp(
+        initialRoute: BaseRouters.splash,
+        initialBinding: AppBinding(),
+        locale: LocalizationService.locale,
+        fallbackLocale: LocalizationService.fallbackLocale,
+        translations: LocalizationService(),
+        defaultTransition: Transition.leftToRight,
+        transitionDuration: const Duration(),
+        getPages: AppPages.list,
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        themeMode: ThemeMode.system,
+        localizationsDelegates: AppConstants.localizationsDelegates,
+        supportedLocales: LocalizationService.locales,
+        builder: EasyLoading.init(
+          builder: (context, widget) {
+            return MediaQuery(
+              data: MediaQuery.of(context)
+                  .copyWith(boldText: false, textScaler: TextScaler.noScaling),
+              child: widget!,
+            );
+          },
+        ),
+      ),
     );
   }
 }

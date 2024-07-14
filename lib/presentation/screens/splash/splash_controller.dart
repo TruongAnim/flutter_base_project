@@ -42,9 +42,9 @@ class SplashController extends GetxController
   }
 
   void toSecondScreen() {
-    bool isFirstOpen = appGlobal<SharedPreferenceHelper>().getIsFirstOpen;
+    bool isFirstOpen = appGlobal<SharedPrefsHelper>().getIsFirstOpen;
     if (isFirstOpen) {
-      appGlobal<SharedPreferenceHelper>().setIsFirstOpen(isFirst: false);
+      appGlobal<SharedPrefsHelper>().setIsFirstOpen(isFirst: false);
     } else {
       // premiumCtrl.handleActionWithPremiumRole(() {
       //   Get.offAllNamed(BaseRouters.MAIN_NAVIGATOR);

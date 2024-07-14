@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter_base_project/constants/exports.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -168,17 +167,16 @@ class _SnackBarState extends State<_SnackBar>
     switch (widget.type) {
       case SnackBarType.success:
         icon = SvgPicture.asset(AppImages.ic_tick_circle_success,
-            width: 24.r, height: 24.r);
+            width: 24, height: 24);
         // color = AppColor.success50;
         break;
       case SnackBarType.error:
-        icon =
-            SvgPicture.asset(AppImages.close_circle, width: 24.r, height: 24.r);
+        icon = SvgPicture.asset(AppImages.close_circle, width: 24, height: 24);
         // color = AppColor.error50;
         break;
       case SnackBarType.warning:
-        icon = SvgPicture.asset(AppImages.ic_repeat_circle,
-            width: 24.r, height: 24.r);
+        icon =
+            SvgPicture.asset(AppImages.ic_repeat_circle, width: 24, height: 24);
         // color = AppColor.error50;
         break;
     }
@@ -207,8 +205,8 @@ class _SnackBarState extends State<_SnackBar>
           color: Colors.transparent,
           child: Container(
             height: widget.height,
-            width: Get.width - 32.w,
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+            width: Get.width - 32,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
             decoration: BoxDecoration(
               color: const Color(0xFF292D32).withOpacity(0.32),
               borderRadius: BorderRadius.circular(8),
@@ -216,16 +214,16 @@ class _SnackBarState extends State<_SnackBar>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                icon.marginOnly(right: 8.w),
+                icon.marginOnly(right: 8),
                 Expanded(
                   child: RichText(
                     text: TextSpan(
                         style: AppTextStyles.body1, children: _textSpan),
-                  ).marginOnly(left: 8.w),
+                  ).marginOnly(left: 8),
                 ),
               ],
             ),
           ),
-        )).marginSymmetric(horizontal: 16.w);
+        )).marginSymmetric(horizontal: 16);
   }
 }

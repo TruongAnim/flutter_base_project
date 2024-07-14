@@ -19,7 +19,7 @@ appPrint(dynamic s) {
 }
 
 get appLocal {
-  return appGlobal<SharedPreferenceHelper>().getLocale;
+  return appGlobal<SharedPrefsHelper>().getLocale;
 }
 
 extension TranslateExtensions on String? {

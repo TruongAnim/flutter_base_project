@@ -4,7 +4,6 @@ import 'package:flutter_base_project/core/enums/enums.dart';
 import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'image_widget_loading.dart';
@@ -112,8 +111,8 @@ class ImageWidget extends StatelessWidget {
           errorWidget: (context, url, error) => Image.asset(
             AppImages.placeHolder,
             fit: fit,
-            height: height ?? 0.1.sh,
-            width: width ?? 0.1.sh,
+            height: height ?? 0.1 * SizeUtil.screenWidth,
+            width: width ?? 0.1 * SizeUtil.screenHeight,
           ),
         );
       } else if (imageUrlType == ImageUrlType.ASSET) {
@@ -126,8 +125,8 @@ class ImageWidget extends StatelessWidget {
             return Image.asset(
               AppImages.placeHolder,
               fit: fit,
-              height: height ?? 0.1.sh,
-              width: width ?? 0.1.sh,
+              height: height ?? 0.1 * SizeUtil.screenHeight,
+              width: width ?? 0.1 * SizeUtil.screenHeight,
             );
           },
         );
@@ -141,8 +140,8 @@ class ImageWidget extends StatelessWidget {
             return Image.asset(
               AppImages.placeHolder,
               fit: fit,
-              height: height ?? 0.1.sh,
-              width: width ?? 0.1.sh,
+              height: height ?? 0.1 * SizeUtil.screenHeight,
+              width: width ?? 0.1 * SizeUtil.screenHeight,
             );
           },
         );
@@ -153,7 +152,7 @@ class ImageWidget extends StatelessWidget {
           child: Icon(
             icon,
             color: color,
-            size: size ?? 0.08.sh,
+            size: size ?? 0.08 * SizeUtil.screenHeight,
           ),
         );
       }
@@ -212,8 +211,8 @@ class ImageWidget extends StatelessWidget {
       return Image.asset(
         AppImages.placeHolder,
         fit: fit,
-        height: height ?? 0.1.sh,
-        width: width ?? 0.1.sh,
+        height: height ?? 0.1 * SizeUtil.screenHeight,
+        width: width ?? 0.1 * SizeUtil.screenHeight,
       );
     }
 

@@ -3,10 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-// ignore: unnecessary_import
-import 'dart:typed_data';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +17,7 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'received_notification.dart';
+import 'package:flutter_base_project/core/helper/device_util.dart';
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse notificationResponse) {
@@ -1804,17 +1802,14 @@ class LocalNotificationService {
 
   Future<Widget> _getActiveNotificationsDialogContent() async {
     if (Platform.isAndroid) {
-      final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-      final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      if (androidInfo.version.sdkInt < 23) {
+      if (DeviceUtil.androidInfo!.version.sdkInt < 23) {
         return const Text(
           '"getActiveNotifications" is available only for Android 6.0 or newer',
         );
       }
     } else if (Platform.isIOS) {
-      final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-      final IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      final List<String> fullVersion = iosInfo.systemVersion.split('.');
+      final List<String> fullVersion =
+          DeviceUtil.iosInfo!.systemVersion.split('.');
       if (fullVersion.isNotEmpty) {
         final int? version = int.tryParse(fullVersion[0]);
         if (version != null && version < 10) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'dart:math' as math;
 
 Widget spaceWidth(double width, {double? height}) {
   return SizedBox(width: width, height: height);
@@ -10,24 +9,34 @@ Widget spaceHeight(double height, {double? width}) {
   return SizedBox(height: height, width: width);
 }
 
+double get sw => SizeUtil.screenWidth;
+double get sh => SizeUtil.screenHeight;
+
 mixin SizeUtil {
-  static double defaultAppbarH = 40.h;
+  static double defaultAppbarH = 40;
 
-  ///
-  /// Get bottom bar height.
-  ///
-  static double bottomBarHeight() {
-    return ScreenUtil().bottomBarHeight;
+  static late double screenWidth;
+  static late double screenHeight;
+  static late double statusBarHeight;
+  static late double bottomBarHeight;
+  static late double devicePixelRatio;
+  static late bool isTablet;
+
+  static void initialize(BuildContext context) {
+    final MediaQueryData mediaQueryData = MediaQuery.of(context);
+    screenWidth = mediaQueryData.size.width;
+    screenHeight = mediaQueryData.size.height;
+    statusBarHeight = mediaQueryData.padding.top;
+    bottomBarHeight = mediaQueryData.padding.bottom;
+    devicePixelRatio = mediaQueryData.devicePixelRatio;
+    isTablet = _isTablet(mediaQueryData);
   }
 
-  ///
-  /// Get status bar height.
-  ///
-  static double statusBarHeight() {
-    return ScreenUtil().statusBarHeight;
-  }
-
-  static bool isTablet() {
-    return ScreenUtil().deviceType(Get.context!) == DeviceType.tablet;
+  static bool _isTablet(MediaQueryData mediaQueryData) {
+    final double diagonal = math.sqrt(
+        mediaQueryData.size.width * mediaQueryData.size.width +
+            mediaQueryData.size.height * mediaQueryData.size.height);
+    final double dpi = diagonal / mediaQueryData.size.shortestSide;
+    return mediaQueryData.size.shortestSide > 600;
   }
 }

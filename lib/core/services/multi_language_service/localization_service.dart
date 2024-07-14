@@ -42,7 +42,7 @@ class LocalizationService extends Translations {
   ///
   static void changeLocale(String langCode) {
     // Save locale.
-    appGlobal<SharedPreferenceHelper>().setLocale(langCode);
+    appGlobal<SharedPrefsHelper>().setLocale(langCode);
     final locale = _getLocaleFromLanguage(langCode: langCode);
     DefaultCupertinoLocalizations.load(locale);
     Get.updateLocale(locale);
@@ -64,7 +64,7 @@ class LocalizationService extends Translations {
       lang = Get.deviceLocale!.languageCode;
 
       // Save locale.
-      appGlobal<SharedPreferenceHelper>().setLocale(lang);
+      appGlobal<SharedPrefsHelper>().setLocale(lang);
     }
     for (int i = 0; i < langCodes.length; i++) {
       if (lang == langCodes[i]) {
