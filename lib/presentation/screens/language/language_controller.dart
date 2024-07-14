@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'view_models/language_view_model.dart';
 
 class LanguageController extends GetxController {
+  static const String tag = 'LanguageController';
   static const String argIsIntro = 'argIsIntro';
   final RxInt selectedIndex = 0.obs;
   final RxInt oldSelectedIndex = 0.obs;
@@ -33,7 +34,7 @@ class LanguageController extends GetxController {
   /// Get language default.
   ///
   void getCurrentLanguage() {
-    appPrint(appLocal);
+    appLog(tag: tag, msg: appLocal);
     selectedIndex.value =
         languages.indexWhere((item) => item.value == appLocal);
 

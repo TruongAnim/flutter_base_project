@@ -8,11 +8,13 @@ import 'di_container.dart';
 import '../helper/init_data_helper.dart';
 
 class AppController extends GetxController {
+  static const String tag = 'AppController';
   // final _isarRepo = appGlobal<IsarRepo>();
   // final AppConnectService _appConnectService = AppConnectService();
 
   @override
   void onInit() async {
+    appLog(tag: tag, msg: 'onInit');
     super.onInit();
     // _appConnectService.onInit();
     _setup();
@@ -21,9 +23,7 @@ class AppController extends GetxController {
   void _setup() async {
     bool isFirstTimeOpen = appGlobal<SharedPrefsHelper>().getIsFirstOpen;
     if (isFirstTimeOpen) {
-      appPrint('Init Data: ${DateTime.now()}');
       await _initData();
-      appPrint('Init done: ${DateTime.now()}');
     }
   }
 

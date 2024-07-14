@@ -12,9 +12,11 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-appPrint(dynamic s) {
+import 'date_helper.dart';
+
+appLog({String? tag, dynamic msg}) {
   if (kDebugMode) {
-    print('AppLog: $s');
+    print('AppLog($now): $tag: $msg');
   }
 }
 

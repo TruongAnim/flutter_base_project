@@ -5,6 +5,7 @@ import 'package:flutter_base_project/data/repo/remote/exports.dart';
 import 'package:get/get.dart';
 
 class ListPostController extends GetxController {
+  static const String tag = 'ListPostController';
   final RemoteRepo remoteRepo = appGlobal<RemoteRepo>();
   RxList<PostModel> listPost = RxList();
   RxBool isLoading = RxBool(true);
@@ -18,12 +19,12 @@ class ListPostController extends GetxController {
     await remoteRepo.paginate<PostModel>(
       filter: '&populate=userId',
       onSuccess: (result) {
-        appPrint("load data done");
+        appLog(tag: tag, msg: "load data done");
         listPost.value = result;
         isLoading.value = false;
       },
       onError: (err) {
-        appPrint(err);
+        appLog(tag: tag, msg: err);
       },
     );
   }

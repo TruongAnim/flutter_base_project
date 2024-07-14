@@ -3,6 +3,8 @@ import 'package:intl/intl.dart' as intl;
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as time_ago;
 
+DateTime get now => DateTime.now();
+
 mixin DateTimeHelper {
   static String format_1 = "yyyy-MM-dd hh:mm:ss";
   static String format_2 = "HH:mm dd-MM-yyyy";

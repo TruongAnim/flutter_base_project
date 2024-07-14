@@ -5,6 +5,7 @@ import 'package:flutter_base_project/core/helper/exports.dart';
 import '../data_source/dio_client.dart';
 
 class LoggingInterceptor extends InterceptorsWrapper {
+  static const String tag = 'LoggingInterceptor';
   int maxCharactersPerLine = 200;
 
   @override
@@ -36,8 +37,10 @@ class LoggingInterceptor extends InterceptorsWrapper {
 
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
-    appPrint(
-        'ERROR [${err.response?.statusCode}] Message[${err.response?.data}] => PATH: ${err.requestOptions.path}');
+    appLog(
+        tag: tag,
+        msg:
+            'ERROR [${err.response?.statusCode}] Message[${err.response?.data}] => PATH: ${err.requestOptions.path}');
     String tokenInvalid = '';
     if (!nullOrEmpty(err.response?.data['errors'])) {
       if ((err.response?.data['errors'][0] as Map<String, dynamic>)

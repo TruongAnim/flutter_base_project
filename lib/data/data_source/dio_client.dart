@@ -9,6 +9,8 @@ import '../domain/end_points.dart';
 import '../interceptor/logging_interceptor.dart';
 
 class DioClient {
+  static const String tag = 'DioClient';
+
   Dio? dio;
   LoggingInterceptor? loggingInterceptor;
 
@@ -199,7 +201,7 @@ class DioClient {
     } on FormatException catch (_) {
       throw const FormatException('Unable to process the data');
     } catch (e) {
-      appPrint("Download file error");
+      appLog(tag: tag, msg: "Download file error");
       rethrow;
     }
   }
@@ -230,7 +232,7 @@ class DioClient {
     } on FormatException catch (_) {
       throw const FormatException('Unable to process the data');
     } catch (e) {
-      appPrint("Upload image");
+      appLog(tag: tag, msg: "Upload image");
       rethrow;
     }
   }
@@ -292,7 +294,7 @@ class DioClient {
     } on FormatException catch (_) {
       throw const FormatException('Unable to process the data');
     } catch (e) {
-      appPrint("Upload image: $uri");
+      appLog(tag: tag, msg: "Upload image: $uri");
       rethrow;
     }
   }

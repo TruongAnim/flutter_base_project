@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 Widget spaceWidth(double width, {double? height}) {
   return SizedBox(width: width, height: height);
@@ -33,10 +32,6 @@ mixin SizeUtil {
   }
 
   static bool _isTablet(MediaQueryData mediaQueryData) {
-    final double diagonal = math.sqrt(
-        mediaQueryData.size.width * mediaQueryData.size.width +
-            mediaQueryData.size.height * mediaQueryData.size.height);
-    final double dpi = diagonal / mediaQueryData.size.shortestSide;
     return mediaQueryData.size.shortestSide > 600;
   }
 }
