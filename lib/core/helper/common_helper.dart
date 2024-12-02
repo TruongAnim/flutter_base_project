@@ -21,7 +21,7 @@ appLog({String? tag, dynamic msg}) {
 }
 
 get appLocal {
-  return appGlobal<SharedPrefsHelper>().getLocale;
+  return SharedPref.instance.getLocale;
 }
 
 extension TranslateExtensions on String? {

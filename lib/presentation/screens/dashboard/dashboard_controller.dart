@@ -13,7 +13,7 @@ class DashboardController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
-    appGlobal<SharedPrefsHelper>().setJwtToken(
+    SharedPref.instance.setJwtToken(
         'ODg5MA.4TgyyGu55cnp0BY04YE9SUi7nvhzeeuFrnbHEmOpUrTOll8ybgzC2OX5ZhVb');
   }
 

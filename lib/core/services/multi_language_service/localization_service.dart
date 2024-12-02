@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:flutter_base_project/core/global/di_container.dart';
 import 'package:flutter_base_project/core/helper/exports.dart';
-import 'package:flutter_base_project/core/shared_preference/shared_preference_helper.dart';
+import 'package:flutter_base_project/core/shared_preference/shared_pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +42,7 @@ class LocalizationService extends Translations {
   ///
   static void changeLocale(String langCode) {
     // Save locale.
-    appGlobal<SharedPrefsHelper>().setLocale(langCode);
+    SharedPref.instance.setLocale(langCode);
     final locale = _getLocaleFromLanguage(langCode: langCode);
     DefaultCupertinoLocalizations.load(locale);
     Get.updateLocale(locale);
@@ -64,7 +64,7 @@ class LocalizationService extends Translations {
       lang = Get.deviceLocale!.languageCode;
 
       // Save locale.
-      appGlobal<SharedPrefsHelper>().setLocale(lang);
+      SharedPref.instance.setLocale(lang);
     }
     for (int i = 0; i < langCodes.length; i++) {
       if (lang == langCodes[i]) {

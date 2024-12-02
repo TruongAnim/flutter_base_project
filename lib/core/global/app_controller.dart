@@ -21,7 +21,7 @@ class AppController extends GetxController {
   }
 
   void _setup() async {
-    bool isFirstTimeOpen = appGlobal<SharedPrefsHelper>().getIsFirstOpen;
+    bool isFirstTimeOpen = SharedPref.instance.getIsFirstOpen;
     if (isFirstTimeOpen) {
       await _initData();
     }

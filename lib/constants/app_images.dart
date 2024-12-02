@@ -1,21 +1,23 @@
 mixin AppImages {
   // Alert.
-  static const String alertIcSuccessAlert = 'assets/base/common/alert_ic_success.svg';
+  static const String alertIcSuccessAlert =
+      'assets/base/common/alert_ic_success.svg';
   static const String alertIcHelpAlert = 'assets/base/common/alert_ic_help.svg';
-  static const String alertIcWarningAlert = 'assets/base/common/alert_ic_warning.svg';
-  static const String alertIcBubblesAlert = 'assets/base/common/alert_ic_bubbles.svg';
+  static const String alertIcWarningAlert =
+      'assets/base/common/alert_ic_warning.svg';
+  static const String alertIcBubblesAlert =
+      'assets/base/common/alert_ic_bubbles.svg';
   static const String alertIcBackAlert = 'assets/base/common/alert_ic_back.svg';
   static const String ic_repeat_circle = 'assets/icons/repeat-circle.svg';
   static const String ic_no_internet = 'assets/images/no_internet.png';
 
   // Place holder image path.
-  static const String placeHolder = 'assets/base/common/base_img_place_holder.jpg';
+  static const String placeHolder =
+      'assets/base/common/base_img_place_holder.jpg';
 
   // Logo app.
-  static const String logoApp = 'assets/base/logo/logo.png';
+  static const String logo = 'assets/base/logo/logo.png';
   static const String defaultAvatar = 'assets/images/avatar_default.png';
-  static const String appName = 'assets/base/logo/app_name.svg';
-
 
   // Intro
   static const String intro_1 = 'assets/images/intro_1.png';
@@ -46,7 +48,8 @@ mixin AppImages {
   static const String empty_page = 'assets/images/empty_page.png';
   static const String empty_page2 = 'assets/images/empty_page_2.png';
   static const String completed_page = 'assets/images/completed_page.png';
-  static const String permission_request = 'assets/images/permission_request.png';
+  static const String permission_request =
+      'assets/images/permission_request.png';
 
   // Icons
   static const String icCheck = 'assets/icons/icon_check.png';
@@ -85,8 +88,10 @@ mixin AppImages {
   static const String heartEmpty = 'assets/icons/heart_empty.svg';
   static const String crown = 'assets/icons/crown.png';
   static const String arrow_right_light = 'assets/icons/arrow-right-light.png';
-  static const String ic_arrow_right_black = 'assets/icons/arrow_right_black.svg';
-  static const String ic_tick_circle_success = 'assets/icons/tick-circle-success.svg';
+  static const String ic_arrow_right_black =
+      'assets/icons/arrow_right_black.svg';
+  static const String ic_tick_circle_success =
+      'assets/icons/tick-circle-success.svg';
   static const String ic_done_white = 'assets/icons/done_white.svg';
   static const String ic_arrow_line_right = 'assets/icons/arrow-line-right.png';
   static const String star_rate = 'assets/icons/star_rate.png';
@@ -123,7 +128,8 @@ mixin AppImages {
 
   // Training
   static const String backArrowDown = 'assets/icons/black_arrow_down.png';
-  static const String icPlayTransparent = 'assets/icons/ic_play_transparent.png';
+  static const String icPlayTransparent =
+      'assets/icons/ic_play_transparent.png';
   static const String clickerBg = 'assets/images/clicker_bg.png';
   static const String clickerBgSmall = 'assets/images/clicker_bg_small.png';
   static const String animSwipe = 'assets/animations/swipe.json';
@@ -158,13 +164,15 @@ mixin AppImages {
   static const String banner_premium = 'assets/images/banner/premium.png';
   static const String banner_training = 'assets/images/banner/training.png';
   static const String banner_walking = 'assets/images/banner/walking.png';
-  static const String banner_vaccination = 'assets/images/banner/vaccination.png';
+  static const String banner_vaccination =
+      'assets/images/banner/vaccination.png';
   static const String banner_care = 'assets/images/banner/care.png';
   static const String banner_other = 'assets/images/banner/other.png';
   static const String banner_medicine = 'assets/images/banner/medicine.png';
   static const String banner_sysptoms = 'assets/images/banner/sysptoms.png';
   static const String banner_vetvisit = 'assets/images/banner/vet_visit.png';
-  static const String banner_anti_prasitic = 'assets/images/banner/anti_prasitic.png';
+  static const String banner_anti_prasitic =
+      'assets/images/banner/anti_prasitic.png';
 
   static const String reminder_bell = 'assets/images/reminder_bell.png';
 
@@ -173,12 +181,15 @@ mixin AppImages {
   static const String icSave = 'assets/images/profile_info_ic_save.png';
 
   //congratulations
-  static const String congratulationsBg = 'assets/images/congratulations_bg.png';
-  static const String congratulationsGif = 'assets/animations/congratulations_gif.json';
+  static const String congratulationsBg =
+      'assets/images/congratulations_bg.png';
+  static const String congratulationsGif =
+      'assets/animations/congratulations_gif.json';
   static const String congratulationsStarGreat = 'assets/images/star_great.png';
 
   // Walking
-  static const String walkingInfoBanner = 'assets/images/walking_info_banner.png';
+  static const String walkingInfoBanner =
+      'assets/images/walking_info_banner.png';
   static const String icTime = 'assets/icons/ic_time.png';
   static const String icUrine = 'assets/icons/ic_urine.png';
   static const String icFeces = 'assets/icons/ic_feces.png';
@@ -212,7 +223,8 @@ mixin AppImages {
   static const String multiplePet = 'assets/icons/premium/multiple_pet.png';
   static const String noAds = 'assets/icons/premium/no_ads.png';
   static const String goPremiumButton = 'assets/animations/button_premium.json';
-  static const String goPremiumBackground = 'assets/images/go_premium_background.png';
+  static const String goPremiumBackground =
+      'assets/images/go_premium_background.png';
   static const String tickCicleWhite = 'assets/icons/tick_circle_white.png';
   static const String closePremium = 'assets/icons/close_premium.png';
   static const String dinamoA = 'assets/animations/go_premium.json';

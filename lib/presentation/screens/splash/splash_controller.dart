@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/config/routes/exports.dart';
-import 'package:flutter_base_project/core/global/exports.dart';
 import 'package:flutter_base_project/core/shared_preference/exports.dart';
 import 'package:flutter_base_project/presentation/screens/language/language_controller.dart';
 import 'package:get/get.dart';
@@ -42,9 +41,9 @@ class SplashController extends GetxController
   }
 
   void toSecondScreen() {
-    bool isFirstOpen = appGlobal<SharedPrefsHelper>().getIsFirstOpen;
+    bool isFirstOpen = SharedPref.instance.getIsFirstOpen;
     if (isFirstOpen) {
-      appGlobal<SharedPrefsHelper>().setIsFirstOpen(isFirst: false);
+      SharedPref.instance.setIsFirstOpen(isFirst: false);
     } else {
       // premiumCtrl.handleActionWithPremiumRole(() {
       //   Get.offAllNamed(BaseRouters.MAIN_NAVIGATOR);

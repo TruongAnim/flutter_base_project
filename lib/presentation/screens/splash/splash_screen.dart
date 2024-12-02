@@ -24,12 +24,10 @@ class SplashScreen extends GetView<SplashController> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: ImageWidget(AppImages.logoApp,
-                          height: 0.2 * SizeUtil.screenWidth),
-                    ).marginOnly(bottom: 32),
-                    ImageWidget(AppImages.appName)
+                    ImageWidget(
+                      AppImages.logo,
+                      width: 100,
+                    )
                   ],
                 ),
               );

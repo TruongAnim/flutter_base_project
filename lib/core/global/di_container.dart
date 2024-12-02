@@ -6,15 +6,12 @@ import 'package:flutter_base_project/data/repo/local/exports.dart';
 import 'package:flutter_base_project/data/repo/local_file_repo.dart';
 import 'package:flutter_base_project/data/repo/remote/exports.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/notification_service/local_notification_service.dart';
-import '../shared_preference/shared_preference_helper.dart';
 
 final appGlobal = GetIt.instance;
 
 mixin DiContainer {
-  static late SharedPreferences sharedPreferences;
   static Future<void> init() async {
     DeviceUtil.initialize();
     // Local notification
@@ -24,11 +21,6 @@ mixin DiContainer {
     // Firebase Crashlytics
     appGlobal
         .registerSingleton<CrashlyticsService>(CrashlyticsService()..init());
-
-    // Share preference
-    sharedPreferences = await SharedPreferences.getInstance();
-    appGlobal
-        .registerLazySingleton<SharedPrefsHelper>(() => SharedPrefsHelper());
 
     appGlobal.registerSingleton<LoggingInterceptor>(LoggingInterceptor());
     LocalRepo localRepo = LocalRepo();
