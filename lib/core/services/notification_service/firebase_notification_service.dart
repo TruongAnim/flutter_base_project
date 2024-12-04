@@ -1,5 +1,5 @@
-import 'package:flutter_base_project/core/helper/common_helper.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_base_project/core/helper/exports.dart';
 
 mixin FirebaseNotificationService {
   static const String tag = 'FirebaseNotificationService';

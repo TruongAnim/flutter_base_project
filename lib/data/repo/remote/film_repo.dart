@@ -27,7 +27,7 @@ class FilmRepo {
       onError(ApiResponse.withError(ApiErrorHandler.getMessage(e)).error);
       return;
     }
-    if (ValidatorHelper.validateResponse(response)) {
+    if (HttpUtil.validateResponse(response)) {
       final data = response.data['data'] as List<dynamic>;
       onSuccess(data.map((e) => FilmModel.fromMap(e)).toList());
     } else {

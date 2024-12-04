@@ -4,6 +4,8 @@ import 'package:flutter_base_project/presentation/screens/language/language_bind
 import 'package:flutter_base_project/presentation/screens/language/language_screen.dart';
 import 'package:flutter_base_project/presentation/screens/list_post/list_post_binding.dart';
 import 'package:flutter_base_project/presentation/screens/list_post/list_post_screen.dart';
+import 'package:flutter_base_project/presentation/screens/no_network/no_network_binding.dart';
+import 'package:flutter_base_project/presentation/screens/no_network/no_network_screen.dart';
 import 'package:flutter_base_project/presentation/screens/splash/splash_binding.dart';
 import 'package:flutter_base_project/presentation/screens/splash/splash_screen.dart';
 import 'package:flutter_base_project/presentation/screens/test_nofitication/test_nofitication_binding.dart';
@@ -13,6 +15,7 @@ import 'package:get/get.dart';
 mixin BaseRouters {
   static const String splash = '/splash';
   static const String language = '/language';
+  static const String noNetwork = '/no-network';
   static const String intro = '/intro';
   static const String dashboard = '/dashboard';
   static const String listPost = '/list-post';
@@ -33,11 +36,11 @@ mixin BaseRouters {
       page: () => const LanguageScreen(),
       binding: LanguageBinding(),
     ),
-    // GetPage(
-    //   name: INTRO,
-    //   page: () => const IntroScreen(),
-    //   binding: IntroBinding(),
-    // ),
+    GetPage(
+      name: noNetwork,
+      page: () => const NoNetworkScreen(),
+      binding: NoNetworkBinding(),
+    ),
     GetPage(
       name: dashboard,
       page: () => const DashboardScreen(),

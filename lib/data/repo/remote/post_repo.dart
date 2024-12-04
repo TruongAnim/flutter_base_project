@@ -27,7 +27,7 @@ class PostRepo {
       onError(ApiResponse.withError(ApiErrorHandler.getMessage(e)).error);
       return;
     }
-    if (ValidatorHelper.validateResponse(response)) {
+    if (HttpUtil.validateResponse(response)) {
       final data = response.data as Map<String, dynamic>;
       onSuccess(PostModel.fromMap(data));
     } else {

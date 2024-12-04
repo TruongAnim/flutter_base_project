@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'package:flutter_base_project/core/global/di_container.dart';
 import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:flutter_base_project/core/shared_preference/shared_pref.dart';
 import 'package:flutter/cupertino.dart';
@@ -68,7 +67,6 @@ class LocalizationService extends Translations {
     }
     for (int i = 0; i < langCodes.length; i++) {
       if (lang == langCodes[i]) {
-        CommonHelper.local = lang;
         return locales[i];
       }
     }

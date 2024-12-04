@@ -28,7 +28,7 @@ class ProductLocalModel extends BaseLocalModel {
   factory ProductLocalModel.fromMap(Map<String, dynamic> map) {
     return ProductLocalModel(
       id: map['id'] != null ? map['id'] as int : Isar.autoIncrement,
-      name: mapToString(map['name']),
+      name: StringUtil.mapToString(map['name']),
       ingredients: map['ingredients'] != null
           ? List<String>.from(map['ingredients'] as List<dynamic>)
           : [],

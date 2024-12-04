@@ -12,19 +12,21 @@ double get sw => SizeUtil.screenWidth;
 double get sh => SizeUtil.screenHeight;
 
 mixin SizeUtil {
-  static double defaultAppbarH = 40;
+  static const double defaultAppbarH = 40;
 
-  static late double screenWidth;
-  static late double screenHeight;
-  static late double statusBarHeight;
-  static late double bottomBarHeight;
-  static late double devicePixelRatio;
-  static late bool isTablet;
+  static late final double screenWidth;
+  static late final double screenHeight;
+  static late final double defaultSize;
+  static late final double statusBarHeight;
+  static late final double bottomBarHeight;
+  static late final double devicePixelRatio;
+  static late final bool isTablet;
 
   static void initialize(BuildContext context) {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
     screenWidth = mediaQueryData.size.width;
     screenHeight = mediaQueryData.size.height;
+    defaultSize = 0.1 * screenHeight;
     statusBarHeight = mediaQueryData.padding.top;
     bottomBarHeight = mediaQueryData.padding.bottom;
     devicePixelRatio = mediaQueryData.devicePixelRatio;

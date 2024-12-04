@@ -1,10 +1,8 @@
 import 'dart:async';
-// import 'package:base_project/core/app_connect_network/app_connect_network.dart';
 import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:flutter_base_project/core/shared_preference/exports.dart';
 import 'package:get/get.dart';
 
-import 'di_container.dart';
 import '../helper/init_data_helper.dart';
 
 class AppController extends GetxController {

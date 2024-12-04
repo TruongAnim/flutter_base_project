@@ -10,158 +10,145 @@ import 'image_widget_loading.dart';
 
 // ignore: must_be_immutable
 class ImageWidget extends StatelessWidget {
-  ImageWidget(
-    String this.urlImage, {
+  const ImageWidget(
+    this.urlImage, {
     super.key,
     this.width,
     this.height,
     this.fit = BoxFit.cover,
-    this.colorIconsSvg,
+    this.colorSvg,
+    this.icon,
+    this.color,
+    this.blendModeSvg,
   });
 
-  ImageWidget.file(
-    this.file, {
-    super.key,
-    this.width,
-    this.height,
-    this.fit = BoxFit.cover,
-  });
-
-  ImageWidget.icon(
-    IconData this.icon, {
-    super.key,
-    this.width,
-    this.height,
-    this.fit = BoxFit.cover,
-    this.color = AppColors.OUTER_SPACE,
-    this.size,
-  });
-
-  String? urlImage;
+  final String urlImage;
   final double? width;
   final double? height;
   final BoxFit? fit;
-  File? file;
-  IconData? icon;
-  Color? color;
-  Color? colorIconsSvg;
-  double? size;
+  final IconData? icon;
+  final Color? color;
+  final Color? colorSvg;
+  final BlendMode? blendModeSvg;
 
-  ImageType checkImageType(String url) {
-    if (nullOrEmpty(url) && nullOrEmpty(file) && nullOrEmpty(icon)) {
+  ImageType _checkImageUrlType(String url) {
+    if (nullOrEmpty(icon)) {
+      return ImageType.ICON;
+    }
+    if (nullOrEmpty(url) && nullOrEmpty(icon)) {
       return ImageType.NOT_IMAGE;
+    }
+    if (url.endsWith(".svg") &&
+        (url.startsWith('http') || url.startsWith('https'))) {
+      return ImageType.SVG_HTTP;
     }
     if (url.endsWith(".svg")) {
       return ImageType.SVG;
     }
-    return ImageType.IMAGE;
-  }
-
-  ImageUrlType checkImageUrlType(String url) {
-    if (nullOrEmpty(url)) {
-      if (icon != null) {
-        return ImageUrlType.ICON;
-      }
-      return ImageUrlType.FILE;
-    }
     if (url.startsWith('http') || url.startsWith('https')) {
-      return ImageUrlType.NETWORK;
-    } else if (url.startsWith('assets/')) {
-      return ImageUrlType.ASSET;
-    } else if (icon != null) {
-      if (icon!.fontFamily
-              .toString()
-              .toLowerCase()
-              .contains('CupertinoIcons'.toLowerCase()) ||
-          icon!.fontFamily
-              .toString()
-              .toLowerCase()
-              .contains('MaterialIcons'.toLowerCase())) {
-        return ImageUrlType.ICON;
-      }
-      return ImageUrlType.FILE;
+      return ImageType.NETWORK;
     }
-    return ImageUrlType.FILE;
+    if (url.startsWith('assets/')) {
+      return ImageType.ASSET;
+    }
+    return ImageType.NOT_IMAGE;
   }
 
-  Widget imageTypeWidget(String urlImage, ImageType imageType,
-      ImageUrlType imageUrlType, double devicePexelRatio) {
-    if (imageType == ImageType.IMAGE) {
-      if (imageUrlType == ImageUrlType.NETWORK) {
-        return CachedNetworkImage(
-          imageUrl: urlImage,
-          fadeOutDuration: Duration.zero,
-          fadeInDuration: Duration.zero,
-          width: width,
-          height: height,
-          // memCacheHeight: (height ?? 1 * devicePexelRatio/2).round(),
-          // memCacheWidth: (width ?? 1 * devicePexelRatio/2).round(),
-          imageBuilder: (context, imageProvider) => Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: fit,
-              ),
+  Widget _imageTypeWidget(String urlImage, ImageType imageType) {
+    if (imageType == ImageType.NETWORK) {
+      return CachedNetworkImage(
+        imageUrl: urlImage,
+        fadeOutDuration: Duration.zero,
+        fadeInDuration: Duration.zero,
+        width: width,
+        height: height,
+        imageBuilder: (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: imageProvider,
+              fit: fit,
             ),
           ),
-          placeholder: (context, url) => ImageWidgetLoading(
-            width: width,
-            height: height,
-          ),
-          errorWidget: (context, url, error) => Image.asset(
+        ),
+        placeholder: (context, url) => ImageWidgetLoading(
+          width: width,
+          height: height,
+        ),
+        errorWidget: (context, url, error) => Image.asset(
+          AppImages.placeHolder,
+          fit: fit,
+          height: height ?? SizeUtil.defaultSize,
+          width: width ?? SizeUtil.defaultSize,
+        ),
+      );
+    } else if (imageType == ImageType.ASSET) {
+      return Image.asset(
+        urlImage,
+        fit: fit,
+        height: height,
+        width: width,
+        errorBuilder: (context, error, stackTrace) {
+          return Image.asset(
             AppImages.placeHolder,
             fit: fit,
-            height: height ?? 0.1 * SizeUtil.screenWidth,
-            width: width ?? 0.1 * SizeUtil.screenHeight,
-          ),
-        );
-      } else if (imageUrlType == ImageUrlType.ASSET) {
-        return Image.asset(
-          urlImage,
-          fit: fit,
-          height: height,
+            height: height ?? SizeUtil.defaultSize,
+            width: width ?? SizeUtil.defaultSize,
+          );
+        },
+      );
+    } else if (imageType == ImageType.FILE) {
+      return Image.file(
+        File(urlImage),
+        fit: fit,
+        height: height,
+        width: width,
+        errorBuilder: (context, error, stackTrace) {
+          return Image.asset(
+            AppImages.placeHolder,
+            fit: fit,
+            height: height ?? SizeUtil.defaultSize,
+            width: width ?? SizeUtil.defaultSize,
+          );
+        },
+      );
+    } else if (imageType == ImageType.ICON) {
+      return SizedBox(
+        height: height,
+        width: width,
+        child: Icon(
+          icon,
+          color: color,
+          size: width ?? SizeUtil.defaultSize,
+        ),
+      );
+    } else if (imageType == ImageType.SVG_HTTP) {
+      return SvgPicture.network(
+        urlImage,
+        fit: fit!,
+        height: height,
+        width: width,
+        placeholderBuilder: (BuildContext context) => ImageWidgetLoading(
           width: width,
-          errorBuilder: (context, error, stackTrace) {
-            return Image.asset(
-              AppImages.placeHolder,
-              fit: fit,
-              height: height ?? 0.1 * SizeUtil.screenHeight,
-              width: width ?? 0.1 * SizeUtil.screenHeight,
-            );
-          },
-        );
-      } else if (imageUrlType == ImageUrlType.FILE) {
-        return Image.file(
-          file!,
-          fit: fit,
           height: height,
+        ),
+      );
+    } else if (imageType == ImageType.SVG_ASSET) {
+      return SvgPicture.asset(
+        urlImage,
+        fit: fit!,
+        height: height,
+        width: width,
+        colorFilter: ColorFilter.mode(
+            colorSvg ?? Colors.white, blendModeSvg ?? BlendMode.srcIn),
+        placeholderBuilder: (BuildContext context) => ImageWidgetLoading(
           width: width,
-          errorBuilder: (context, error, stackTrace) {
-            return Image.asset(
-              AppImages.placeHolder,
-              fit: fit,
-              height: height ?? 0.1 * SizeUtil.screenHeight,
-              width: width ?? 0.1 * SizeUtil.screenHeight,
-            );
-          },
-        );
-      } else if (imageUrlType == ImageUrlType.ICON) {
-        return SizedBox(
           height: height,
-          width: width,
-          child: Icon(
-            icon,
-            color: color,
-            size: size ?? 0.08 * SizeUtil.screenHeight,
-          ),
-        );
-      }
-    }
-
-    if (imageType == ImageType.SVG) {
-      if (imageUrlType == ImageUrlType.NETWORK) {
-        return SvgPicture.network(
-          urlImage,
+        ),
+      );
+    } else if (imageType == ImageType.SVG_FILE) {
+      return Expanded(
+        child: SvgPicture.file(
+          File(urlImage),
           fit: fit!,
           height: height,
           width: width,
@@ -169,66 +156,39 @@ class ImageWidget extends StatelessWidget {
             width: width,
             height: height,
           ),
-        );
-      } else if (imageUrlType == ImageUrlType.ASSET) {
-        return SvgPicture.asset(
-          urlImage,
-          fit: fit!,
-          height: height,
-          width: width,
-          color: colorIconsSvg,
-          placeholderBuilder: (BuildContext context) => ImageWidgetLoading(
-            width: width,
-            height: height,
-          ),
-        );
-      } else if (imageUrlType == ImageUrlType.FILE) {
-        return Expanded(
-          child: SvgPicture.file(
-            file!,
-            fit: fit!,
-            height: height,
-            width: width,
-            placeholderBuilder: (BuildContext context) => ImageWidgetLoading(
-              width: width,
-              height: height,
-            ),
-          ),
-        );
-      } else if (imageUrlType == ImageUrlType.ICON) {
-        return SizedBox(
-          height: height,
-          width: width,
-          child: Icon(
-            icon,
-            color: color,
-          ),
-        );
-      }
+        ),
+      );
+    } else if (imageType == ImageType.ICON) {
+      return SizedBox(
+        height: height,
+        width: width,
+        child: Icon(
+          icon,
+          color: color,
+        ),
+      );
     }
 
     if (imageType == ImageType.NOT_IMAGE) {
       return Image.asset(
         AppImages.placeHolder,
         fit: fit,
-        height: height ?? 0.1 * SizeUtil.screenHeight,
-        width: width ?? 0.1 * SizeUtil.screenHeight,
+        height: height ?? SizeUtil.defaultSize,
+        width: width ?? SizeUtil.defaultSize,
       );
     }
 
-    return Container();
+    return Container(
+      width: SizeUtil.defaultSize,
+      height: SizeUtil.defaultSize,
+      color: Colors.white,
+      child: Text('Image error'),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final imageType = checkImageType(urlImage.toString());
-    final imageUrlType = checkImageUrlType(urlImage.toString());
-    final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
-    return imageTypeWidget(
-      urlImage.toString(),
-      imageType,
-      imageUrlType,
-      devicePixelRatio,
-    );
+    final imageType = _checkImageUrlType(urlImage.toString());
+    return _imageTypeWidget(urlImage.toString(), imageType);
   }
 }

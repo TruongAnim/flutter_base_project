@@ -732,9 +732,9 @@ class LocalNotificationService {
   }
 
   Future<void> _showBigPictureNotification() async {
-    final String largeIconPath = (await FileHelper.httpDownloadFile(
+    final String largeIconPath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/48x48', 'largeIcon'))!;
-    final String bigPicturePath = (await FileHelper.httpDownloadFile(
+    final String bigPicturePath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/400x800', 'bigPicture'))!;
     final BigPictureStyleInformation bigPictureStyleInformation =
         BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
@@ -816,9 +816,9 @@ class LocalNotificationService {
   }
 
   Future<void> _showBigPictureNotificationHiddenLargeIcon() async {
-    final String largeIconPath = (await FileHelper.httpDownloadFile(
+    final String largeIconPath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/48x48', 'largeIcon'))!;
-    final String bigPicturePath = (await FileHelper.httpDownloadFile(
+    final String bigPicturePath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/400x800', 'bigPicture'))!;
     final BigPictureStyleInformation bigPictureStyleInformation =
         BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
@@ -840,7 +840,7 @@ class LocalNotificationService {
   }
 
   Future<void> _showNotificationMediaStyle() async {
-    final String largeIconPath = (await FileHelper.httpDownloadFile(
+    final String largeIconPath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/128x128/00FF00/000000', 'largeIcon'))!;
     final AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -918,7 +918,7 @@ class LocalNotificationService {
       icon: FlutterBitmapAssetAndroidIcon('icons/coworker.png'),
     );
     // download the icon that would be use for the lunch bot person
-    final String largeIconPath = (await FileHelper.httpDownloadFile(
+    final String largeIconPath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/48x48', 'largeIcon'))!;
     // this person object will use an icon that was downloaded
     final Person lunchBot = Person(
@@ -1499,7 +1499,7 @@ class LocalNotificationService {
   Future<void> _showNotificationWithAttachment({
     required bool hideThumbnail,
   }) async {
-    final String bigPicturePath = (await FileHelper.httpDownloadFile(
+    final String bigPicturePath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/600x200', 'bigPicture.jpg'))!;
     final DarwinNotificationDetails darwinNotificationDetails =
         DarwinNotificationDetails(
@@ -1520,7 +1520,7 @@ class LocalNotificationService {
   }
 
   Future<void> _showNotificationWithClippedThumbnailAttachment() async {
-    final String bigPicturePath = (await FileHelper.httpDownloadFile(
+    final String bigPicturePath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/600x200', 'bigPicture.jpg'))!;
     final DarwinNotificationDetails darwinNotificationDetails =
         DarwinNotificationDetails(

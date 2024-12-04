@@ -42,7 +42,7 @@ class RemoteRepo with Mapping {
       onError(ApiResponse.withError(ApiErrorHandler.getMessage(e)).error);
       return;
     }
-    if (ValidatorHelper.validateResponse(response)) {
+    if (HttpUtil.validateResponse(response)) {
       final data = response.data['results'] as List<dynamic>;
       onSuccess(data
           .map((e) => DataUtils.buildObject<T>(getConstructor<T>(), e))
@@ -66,7 +66,7 @@ class RemoteRepo with Mapping {
       onError(ApiResponse.withError(ApiErrorHandler.getMessage(e)).error);
       return;
     }
-    if (ValidatorHelper.validateResponse(response)) {
+    if (HttpUtil.validateResponse(response)) {
       final data = response.data as Map<String, dynamic>;
       onSuccess(DataUtils.buildObject<T>(getConstructor<T>(), data));
     } else {
@@ -88,7 +88,7 @@ class RemoteRepo with Mapping {
       onError(ApiResponse.withError(ApiErrorHandler.getMessage(e)).error);
       return;
     }
-    if (ValidatorHelper.validateResponse(response)) {
+    if (HttpUtil.validateResponse(response)) {
       final data = response.data as Map<String, dynamic>;
       onSuccess(DataUtils.buildObject<T>(getConstructor<T>(), data));
     } else {
@@ -110,7 +110,7 @@ class RemoteRepo with Mapping {
       onError(ApiResponse.withError(ApiErrorHandler.getMessage(e)).error);
       return;
     }
-    if (ValidatorHelper.validateResponse(response)) {
+    if (HttpUtil.validateResponse(response)) {
       final data = response.data as Map<String, dynamic>;
       onSuccess(DataUtils.buildObject<T>(getConstructor<T>(), data));
     } else {
@@ -132,7 +132,7 @@ class RemoteRepo with Mapping {
       onError(ApiResponse.withError(ApiErrorHandler.getMessage(e)).error);
       return;
     }
-    if (ValidatorHelper.validateResponse(response)) {
+    if (HttpUtil.validateResponse(response)) {
       final data = response.data as Map<String, dynamic>;
       onSuccess(DataUtils.buildObject<T>(getConstructor<T>(), data));
     } else {
