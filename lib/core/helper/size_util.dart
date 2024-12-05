@@ -14,6 +14,7 @@ double get sh => SizeUtil.screenHeight;
 mixin SizeUtil {
   static const double defaultAppbarH = 40;
 
+  static bool isInit = false;
   static late final double screenWidth;
   static late final double screenHeight;
   static late final double defaultSize;
@@ -23,6 +24,9 @@ mixin SizeUtil {
   static late final bool isTablet;
 
   static void initialize(BuildContext context) {
+    if (isInit) {
+      return;
+    }
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
     screenWidth = mediaQueryData.size.width;
     screenHeight = mediaQueryData.size.height;
@@ -31,6 +35,7 @@ mixin SizeUtil {
     bottomBarHeight = mediaQueryData.padding.bottom;
     devicePixelRatio = mediaQueryData.devicePixelRatio;
     isTablet = _isTablet(mediaQueryData);
+    isInit = true;
   }
 
   static bool _isTablet(MediaQueryData mediaQueryData) {

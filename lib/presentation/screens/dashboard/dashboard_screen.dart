@@ -13,15 +13,7 @@ class DashboardScreen extends GetView<DashboardController> {
     return Scaffold(
       backgroundColor: AppColors.BACK_GROUND,
       body: Obx(() {
-        if (controller.isLoading.isTrue) {
-          return const CircularProgressIndicator();
-        }
-        return ListView.builder(
-          itemCount: controller.listProducts.length,
-          itemBuilder: (context, index) {
-            return Text(controller.listProducts[index].name.toString());
-          },
-        );
+        return const CircularProgressIndicator();
       }),
       bottomNavigationBar: SizedBox(
         width: SizeUtil.screenWidth,

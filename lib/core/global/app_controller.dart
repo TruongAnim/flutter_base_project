@@ -1,21 +1,26 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/helper/exports.dart';
 import 'package:flutter_base_project/core/shared_preference/exports.dart';
 import 'package:get/get.dart';
 
-import '../helper/init_data_helper.dart';
-
-class AppController extends GetxController {
+class AppController extends GetxController with WidgetsBindingObserver {
   static const String tag = 'AppController';
-  // final _isarRepo = appGlobal<IsarRepo>();
-  // final AppConnectService _appConnectService = AppConnectService();
+  Rx<AppLifecycleState> appLifecycleState =
+      Rx<AppLifecycleState>(AppLifecycleState.resumed);
 
   @override
   void onInit() async {
-    appLog(tag: tag, msg: 'onInit');
     super.onInit();
-    // _appConnectService.onInit();
+    appLog(tag: tag, msg: 'onInit');
+    WidgetsBinding.instance.addObserver(this);
     _setup();
+  }
+
+  @override
+  void onClose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onClose();
   }
 
   void _setup() async {
@@ -25,8 +30,10 @@ class AppController extends GetxController {
     }
   }
 
-  Future<void> _initData() async {
-    final dataHepler = InitDataHelper();
-    await dataHepler.initData();
+  Future<void> _initData() async {}
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    appLifecycleState.value = state;
   }
 }

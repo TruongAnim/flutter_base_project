@@ -18,8 +18,9 @@ class RuntimeResult<T> {
 }
 
 mixin RuntimeUtil {
+  static int appStart = DateTimeUtil.timeStamp;
   static int blockThreadTime = 0;
-  static get appRunTime => DateTimeUtil.timeStamp - blockThreadTime;
+  static get appRunTime => DateTimeUtil.timeStamp - blockThreadTime - appStart;
 
   Future<RuntimeResult<T>> measureAsync<T>(Future<T> Function() asyncFunction,
       {bool isBlockThread = false}) async {

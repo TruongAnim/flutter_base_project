@@ -14,14 +14,16 @@ class DioClient {
   Dio? dio;
   LoggingInterceptor? loggingInterceptor;
 
-  DioClient() {
-    _init();
-  }
+  DioClient._();
+
+  static final DioClient _instance = DioClient._();
+  static DioClient get I => _instance;
+  static DioClient get instance => _instance;
 
   ///
   /// Init dio.
   ///
-  void _init() {
+  void init() {
     final String jwtToken = SharedPref.I.getJwtToken;
 
     dio = Dio();

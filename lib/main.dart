@@ -15,16 +15,12 @@ import 'core/services/exports.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SharedPref.instance.init();
-
   // Init firebase.
   await Firebase.initializeApp(
       name: "Flutter base project",
       options: DefaultFirebaseOptions.currentPlatform);
 
-  // Init Get it.
-  await DiContainer.init();
-  FirebaseNotificationService.init();
+  await _initApp();
 
   /// Instance Easy Loading.
   EasyLoading.instance
@@ -62,6 +58,14 @@ void _updateSystemChrome() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+}
+
+Future<void> _initApp() async {
+  await SharedPref.instance.init();
+  CrashlyticsService.init();
+  // Init Get it.
+  await DiContainer.init();
+  FirebaseNotificationService.init();
 }
 
 class MyApp extends StatelessWidget {

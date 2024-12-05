@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class ListPostController extends GetxController {
   static const String tag = 'ListPostController';
-  final RemoteRepo remoteRepo = appGlobal<RemoteRepo>();
+  final PostRepo postRepo = appGlobal<PostRepo>();
   RxList<PostModel> listPost = RxList();
   RxBool isLoading = RxBool(true);
   @override
@@ -16,16 +16,13 @@ class ListPostController extends GetxController {
   }
 
   Future<void> initData() async {
-    await remoteRepo.paginate<PostModel>(
-      filter: '&populate=userId',
-      onSuccess: (result) {
-        appLog(tag: tag, msg: "load data done");
-        listPost.value = result;
-        isLoading.value = false;
-      },
-      onError: (err) {
-        appLog(tag: tag, msg: err);
-      },
-    );
+    final apiResponse = await postRepo.paginate(filter: '&populate=userId');
+    if (apiResponse.r != null) {
+      appLog(tag: tag, msg: "load data done");
+      listPost.value = apiResponse.r!;
+      isLoading.value = false;
+    } else {
+      appLog(tag: tag, msg: apiResponse.e);
+    }
   }
 }

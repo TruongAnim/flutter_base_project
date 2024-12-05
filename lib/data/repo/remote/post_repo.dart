@@ -1,37 +1,28 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_base_project/core/helper/exports.dart';
+import 'package:flutter_base_project/data/data_source/dio_client.dart';
 import 'package:flutter_base_project/data/domain/end_points.dart';
 import 'package:flutter_base_project/data/models/exports.dart';
 import 'package:flutter_base_project/data/response/exports.dart';
 
 import 'remote_repo.dart';
 
-class PostRepo {
-  final RemoteRepo remoteRepo;
-  PostRepo(this.remoteRepo) {
-    remoteRepo.registerEndPoint<PostModel>(EndPoints.REMOTE_POST);
-    remoteRepo.registerConstructor<PostModel>(PostModel.fromMap);
-  }
+class PostRepo extends RemoteRepo<PostModel> {
+  PostRepo()
+      : super(DioClient.I,
+            endPoint: EndPoints.REMOTE_FILM, constructor: PostModel.fromMap);
 
-  Future<void> getPostByName({
-    required String filter,
-    required Function(PostModel results) onSuccess,
-    required Function(dynamic error) onError,
-  }) async {
-    late Response response;
-    String uri = '${EndPoints.REMOTE_POST}?$filter';
-
+  Future<ApiResponse<PostModel>> getPostByName({required String filter}) async {
     try {
-      response = await remoteRepo.dio.get(uri);
+      String uri = '${EndPoints.REMOTE_POST}?$filter';
+      final response = await dio.get(uri);
+      if (HttpUtil.validateResponse(response)) {
+        final data = response.data as Map<String, dynamic>;
+        return ApiResponse.success(PostModel.fromMap(data));
+      } else {
+        return ApiResponse.error(response.data);
+      }
     } catch (e) {
-      onError(ApiResponse.withError(ApiErrorHandler.getMessage(e)).error);
-      return;
-    }
-    if (HttpUtil.validateResponse(response)) {
-      final data = response.data as Map<String, dynamic>;
-      onSuccess(PostModel.fromMap(data));
-    } else {
-      onError(ApiErrorHandler.getMessage(response.data));
+      return ApiResponse.error(e);
     }
   }
 }

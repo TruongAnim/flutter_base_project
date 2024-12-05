@@ -1,6 +1,8 @@
 import 'package:flutter_base_project/core/helper/device_util.dart';
 import 'package:flutter_base_project/core/services/exports.dart';
 import 'package:flutter_base_project/data/data_source/dio_client.dart';
+import 'package:flutter_base_project/data/data_source/isar_service.dart';
+import 'package:flutter_base_project/data/data_source/local_file_service.dart';
 import 'package:flutter_base_project/data/interceptor/logging_interceptor.dart';
 import 'package:flutter_base_project/data/repo/local/exports.dart';
 import 'package:flutter_base_project/data/repo/local_file_repo.dart';
@@ -18,29 +20,9 @@ mixin DiContainer {
     LocalNotificationService localNotificationService =
         LocalNotificationService();
     await localNotificationService.init();
-    // Firebase Crashlytics
-    appGlobal
-        .registerSingleton<CrashlyticsService>(CrashlyticsService()..init());
 
     appGlobal.registerSingleton<LoggingInterceptor>(LoggingInterceptor());
-    LocalRepo localRepo = LocalRepo();
-    await localRepo.init();
-    DioClient dio = DioClient();
-    RemoteRepo remoteRepo = RemoteRepo(dio);
-    LocalFileRepo localFileRepo = LocalFileRepo()..init();
-
-    // Local File
-    appGlobal.registerLazySingleton<LocalFileRepo>(() => localFileRepo);
-
-    // Local DB
-    appGlobal.registerSingleton<LocalRepo>(localRepo);
-    appGlobal.registerSingleton<ProductLocalRepo>(ProductLocalRepo(localRepo));
-
-    // Remote DB
-    appGlobal.registerSingleton<DioClient>(dio);
-    appGlobal.registerSingleton<RemoteRepo>(remoteRepo);
-    appGlobal.registerSingleton<PostRepo>(PostRepo(remoteRepo));
-    appGlobal.registerSingleton<FilmRepo>(FilmRepo(remoteRepo));
+    await Future.wait([initIsar(), initDio(), initLocalFile()]);
 
     // Audio service
     appGlobal.registerLazySingleton<AudioService>(() => AudioService());
@@ -48,5 +30,21 @@ mixin DiContainer {
     // Notification service
     appGlobal
         .registerSingleton<LocalNotificationService>(localNotificationService);
+  }
+
+  static Future<void> initIsar() async {
+    await IsarService.I.init();
+    appGlobal.registerLazySingleton<ProductLocalRepo>(() => ProductLocalRepo());
+  }
+
+  static Future<void> initDio() async {
+    DioClient.I.init();
+    appGlobal.registerLazySingleton<PostRepo>(() => PostRepo());
+    appGlobal.registerLazySingleton<FilmRepo>(() => FilmRepo());
+  }
+
+  static Future<void> initLocalFile() async {
+    LocalFileService.I.init();
+    appGlobal.registerLazySingleton<LocalFileRepo>(() => LocalFileRepo());
   }
 }

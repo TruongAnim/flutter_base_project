@@ -1,27 +1,21 @@
-import 'package:flutter_base_project/data/data_utils.dart';
-import 'package:flutter_base_project/data/models/exports.dart';
+import 'package:flutter_base_project/data/response/exports.dart';
 
 import '../data_source/local_file_service.dart';
-import '../domain/end_points.dart';
-import 'mapping.dart';
 
-class LocalFileRepo with Mapping {
-  final LocalFileService _localFileRepo = LocalFileService();
+class LocalFileRepo {
+  final LocalFileService _localFileRepo = LocalFileService.instance;
 
-  void init() async {
-    registerMapping<ProductLocalModel>(
-        MappingType.localEndPoint, EndPoints.LOCAL_PRODUCT);
-
-    registerMapping<ProductLocalModel>(
-        MappingType.constructor, ProductLocalModel.fromMap);
-  }
-
-  Future<List<T>> getAll<T>() async {
-    final List<dynamic> response = await _localFileRepo
-        .getDataFromAsset(getMapping<T>(MappingType.localEndPoint));
-    return response.map((e) {
-      return DataUtils.buildObject<T>(
-          getMapping<T>(MappingType.constructor), e);
-    }).toList();
+  Future<ApiResponse<List<T>>> getAll<T>(
+      String path, Function constructor) async {
+    try {
+      final List<dynamic> response =
+          await _localFileRepo.getDataFromAsset(path);
+      final result = response.map((e) {
+        return constructor(e) as T;
+      }).toList();
+      return ApiResponse.success(result);
+    } catch (e) {
+      return ApiResponse.error(e);
+    }
   }
 }

@@ -91,7 +91,7 @@ class RewardAdsService extends ChangeNotifier {
       //     currency: currencyCode, revenue: value);
     };
     _rewardedAd?.show(
-      // Call khi user có thể nhận reward (Chưa cần lick tắt quảng cáo)
+      // Call khi user có thể nhận reward (Chưa cần click tắt quảng cáo)
       onUserEarnedReward: (adWithoutView, reward) {
         onSuccess(adWithoutView, reward);
       },
