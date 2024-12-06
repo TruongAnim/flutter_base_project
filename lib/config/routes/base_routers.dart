@@ -2,8 +2,8 @@ import 'package:flutter_base_project/presentation/screens/dashboard/dashboard_bi
 import 'package:flutter_base_project/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter_base_project/presentation/screens/language/language_binding.dart';
 import 'package:flutter_base_project/presentation/screens/language/language_screen.dart';
-import 'package:flutter_base_project/presentation/screens/list_post/test_api_binding.dart';
-import 'package:flutter_base_project/presentation/screens/list_post/test_api_screen.dart';
+import 'package:flutter_base_project/presentation/screens/test_api/test_api_binding.dart';
+import 'package:flutter_base_project/presentation/screens/test_api/test_api_screen.dart';
 import 'package:flutter_base_project/presentation/screens/no_network/no_network_binding.dart';
 import 'package:flutter_base_project/presentation/screens/no_network/no_network_screen.dart';
 import 'package:flutter_base_project/presentation/screens/splash/splash_binding.dart';

@@ -13,7 +13,7 @@ mixin EndPoints {
   static const String LOGIN = '${BASE_URL}auth/user/login';
   static const String GET_USER_INFO = '${BASE_URL}api/user/get_info';
   static const String REMOTE_POST = '${BASE_URL}post';
-  static const String REMOTE_FILM = '${BASE_URL}film_for_you';
+  static const String REMOTE_FILM = '${BASE_URL}api/list_films';
 
   static const String LOCAL_PATH = 'assets/data/';
   static const String LOCAL_PRODUCT = '${LOCAL_PATH}products.json';

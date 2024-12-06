@@ -11,8 +11,7 @@ class FilmRepo extends RemoteRepo<FilmModel> {
       : super(DioClient.I,
             endPoint: EndPoints.REMOTE_FILM, constructor: FilmModel.fromMap);
 
-  Future<ApiResponse<List<FilmModel>>> getAllShort(
-      {required String filter}) async {
+  Future<ApiResponse<List<FilmModel>>> getFilms({String filter = ''}) async {
     try {
       String uri = '${EndPoints.REMOTE_FILM}?$filter';
       final response = await dio.get(uri);

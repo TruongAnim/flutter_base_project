@@ -15,10 +15,15 @@ class TestApiScreen extends GetView<TestApiController> {
         if (controller.isLoading.isTrue) {
           return CircularProgressIndicator();
         }
-        return ListView.builder(
+        return ListView.separated(
+          separatorBuilder: (context, index) => const Divider(),
           itemCount: controller.listPost.length,
           itemBuilder: (context, index) {
-            return Text(controller.listPost[index].user.toString());
+            return ListTile(
+              tileColor: Colors.blue,
+              textColor: Colors.white,
+              title: Text(controller.listPost[index].title.toString()),
+            );
           },
         );
       }),
