@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/config/routes/exports.dart';
+import 'package:flutter_base_project/core/global/auth_controller.dart';
 import 'package:flutter_base_project/core/shared_preference/shared_pref.dart';
 import 'package:get/get.dart';
 
@@ -41,8 +42,8 @@ class SplashController extends GetxController
 
   Future<void> _login() async {
     // Load data sync
-    final _initDone = await Future.delayed(Duration(seconds: 2));
-    if (false) {
+    final loginDone = await Get.find<AuthController>().login();
+    if (!loginDone) {
       Get.toNamed(BaseRouters.noNetwork);
       return;
     }

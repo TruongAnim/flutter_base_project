@@ -2,8 +2,8 @@ import 'package:flutter_base_project/presentation/screens/dashboard/dashboard_bi
 import 'package:flutter_base_project/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter_base_project/presentation/screens/language/language_binding.dart';
 import 'package:flutter_base_project/presentation/screens/language/language_screen.dart';
-import 'package:flutter_base_project/presentation/screens/list_post/list_post_binding.dart';
-import 'package:flutter_base_project/presentation/screens/list_post/list_post_screen.dart';
+import 'package:flutter_base_project/presentation/screens/list_post/test_api_binding.dart';
+import 'package:flutter_base_project/presentation/screens/list_post/test_api_screen.dart';
 import 'package:flutter_base_project/presentation/screens/no_network/no_network_binding.dart';
 import 'package:flutter_base_project/presentation/screens/no_network/no_network_screen.dart';
 import 'package:flutter_base_project/presentation/screens/splash/splash_binding.dart';
@@ -18,7 +18,7 @@ mixin BaseRouters {
   static const String noNetwork = '/no-network';
   static const String intro = '/intro';
   static const String dashboard = '/dashboard';
-  static const String listPost = '/list-post';
+  static const String testApi = '/test-api';
   static const String shortVideo = '/short-video';
   static const String shortVideoPreload = '/short-video-preload';
   static const String shortVideoCache = '/short-video-cache';
@@ -47,9 +47,9 @@ mixin BaseRouters {
       binding: DashboardBinding(),
     ),
     GetPage(
-      name: listPost,
-      page: () => const ListPostScreen(),
-      binding: ListPostBinding(),
+      name: testApi,
+      page: () => const TestApiScreen(),
+      binding: TestApiBinding(),
     ),
     GetPage(
       name: testNotification,

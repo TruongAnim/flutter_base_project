@@ -4,8 +4,8 @@ import 'package:flutter_base_project/data/models/exports.dart';
 import 'package:flutter_base_project/data/repo/remote/exports.dart';
 import 'package:get/get.dart';
 
-class ListPostController extends GetxController {
-  static const String tag = 'ListPostController';
+class TestApiController extends GetxController {
+  static const String tag = 'TestApiController';
   final PostRepo postRepo = appGlobal<PostRepo>();
   RxList<PostModel> listPost = RxList();
   RxBool isLoading = RxBool(true);
@@ -16,13 +16,14 @@ class ListPostController extends GetxController {
   }
 
   Future<void> initData() async {
-    final apiResponse = await postRepo.paginate(filter: '&populate=userId');
+    final apiResponse = await postRepo.paginate();
+    isLoading.value = false;
     if (apiResponse.r != null) {
       appLog(tag: tag, msg: "load data done");
       listPost.value = apiResponse.r!;
-      isLoading.value = false;
     } else {
       appLog(tag: tag, msg: apiResponse.e);
+      listPost.value = [];
     }
   }
 }

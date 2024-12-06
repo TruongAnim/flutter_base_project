@@ -1,3 +1,4 @@
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,7 @@ import 'config/routes/exports.dart';
 import 'config/theme/exports.dart';
 import 'constants/exports.dart';
 import 'core/global/exports.dart';
-import 'core/helper/size_util.dart';
+import 'core/helper/exports.dart';
 import 'core/services/exports.dart';
 
 Future<void> main() async {
@@ -63,6 +64,9 @@ void _updateSystemChrome() {
 Future<void> _initApp() async {
   await SharedPref.instance.init();
   CrashlyticsService.init();
+  PerformanceService.I.init();
+  await AppTrackingTransparency.requestTrackingAuthorization();
+  await DeviceUtil.initialize();
   // Init Get it.
   await DiContainer.init();
   FirebaseNotificationService.init();

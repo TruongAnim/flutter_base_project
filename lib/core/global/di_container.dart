@@ -1,4 +1,3 @@
-import 'package:flutter_base_project/core/helper/device_util.dart';
 import 'package:flutter_base_project/core/services/exports.dart';
 import 'package:flutter_base_project/data/data_source/dio_client.dart';
 import 'package:flutter_base_project/data/data_source/isar_service.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_base_project/data/data_source/local_file_service.dart';
 import 'package:flutter_base_project/data/interceptor/logging_interceptor.dart';
 import 'package:flutter_base_project/data/repo/local/exports.dart';
 import 'package:flutter_base_project/data/repo/local_file_repo.dart';
+import 'package:flutter_base_project/data/repo/remote/auth_repo.dart';
 import 'package:flutter_base_project/data/repo/remote/exports.dart';
 import 'package:get_it/get_it.dart';
 
@@ -15,12 +15,6 @@ final appGlobal = GetIt.instance;
 
 mixin DiContainer {
   static Future<void> init() async {
-    DeviceUtil.initialize();
-    // Local notification
-    LocalNotificationService localNotificationService =
-        LocalNotificationService();
-    await localNotificationService.init();
-
     appGlobal.registerSingleton<LoggingInterceptor>(LoggingInterceptor());
     await Future.wait([initIsar(), initDio(), initLocalFile()]);
 
@@ -28,8 +22,8 @@ mixin DiContainer {
     appGlobal.registerLazySingleton<AudioService>(() => AudioService());
 
     // Notification service
-    appGlobal
-        .registerSingleton<LocalNotificationService>(localNotificationService);
+    appGlobal.registerSingleton<LocalNotificationService>(
+        LocalNotificationService()..init());
   }
 
   static Future<void> initIsar() async {
@@ -41,6 +35,7 @@ mixin DiContainer {
     DioClient.I.init();
     appGlobal.registerLazySingleton<PostRepo>(() => PostRepo());
     appGlobal.registerLazySingleton<FilmRepo>(() => FilmRepo());
+    appGlobal.registerLazySingleton<AuthRepo>(() => AuthRepo());
   }
 
   static Future<void> initLocalFile() async {

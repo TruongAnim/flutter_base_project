@@ -39,11 +39,11 @@ class DeviceUtil {
     } else if (isIos) {
       iosInfo = await deviceInfo.iosInfo;
     }
-    await initDeviceId();
+    await _initDeviceId();
     packageInfo = await PackageInfo.fromPlatform();
   }
 
-  static Future<void> initDeviceId() async {
+  static Future<void> _initDeviceId() async {
     deviceId = SharedPref.instance.getDeviceId;
     if (deviceId.isEmpty) {
       String udid = await getUdid();

@@ -40,11 +40,11 @@ class SharedPref {
   }
 
   String get getJwtToken {
-    return _sharedPreference.getString(PrefKey.isShowClickerGuide) ?? '';
+    return _sharedPreference.getString(PrefKey.jwtToken) ?? '';
   }
 
   Future<bool> setJwtToken(String token) {
-    return _sharedPreference.setString(PrefKey.isShowClickerGuide, token);
+    return _sharedPreference.setString(PrefKey.jwtToken, token);
   }
 
   String get getDeviceId {
@@ -53,5 +53,13 @@ class SharedPref {
 
   Future<bool> setDeviceId(String deviceId) async {
     return _sharedPreference.setString(PrefKey.deviceId, deviceId);
+  }
+
+  String get getFcmToken {
+    return _sharedPreference.getString(PrefKey.fcmToken) ?? '';
+  }
+
+  Future<bool> setFcmToken(String fcmToken) async {
+    return _sharedPreference.setString(PrefKey.fcmToken, fcmToken);
   }
 }

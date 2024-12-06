@@ -2,10 +2,10 @@ import 'package:flutter_base_project/constants/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'list_post_controller.dart';
+import 'test_api_controller.dart';
 
-class ListPostScreen extends GetView<ListPostController> {
-  const ListPostScreen({super.key});
+class TestApiScreen extends GetView<TestApiController> {
+  const TestApiScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

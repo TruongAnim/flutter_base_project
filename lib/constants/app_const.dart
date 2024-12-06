@@ -49,13 +49,6 @@ mixin AppConst {
   // **build_check**
   static const BuildType buildType = BuildType.tester;
 
-  static const String endpoint = buildType == BuildType.product
-      ? 'https://reelbox.me'
-      : 'https://dev.reelbox.me';
-  static const String baseUrlShare = 'https://app.reelbox.me';
-  static const String kProviderGoogle = "google";
-  static const String kProviderFacebook = "facebook";
-  static const String kProviderGuest = "guest";
   static const String kEmailSupport = "feedback@reelbox.me";
   static const String appStoreId = 'id6677011128';
   static const String packageName = 'ngx.short.drama.movie';

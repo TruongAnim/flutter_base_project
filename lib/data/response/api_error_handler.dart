@@ -83,7 +83,7 @@ mixin ApiErrorHandler {
     } else if (error is String) {
       errorDescription = error;
     } else {
-      errorDescription = 'is not a subtype of exception';
+      errorDescription = 'Not a subtype of exception: $error';
     }
     return errorDescription;
   }

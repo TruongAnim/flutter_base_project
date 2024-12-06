@@ -12,51 +12,22 @@ class DashboardScreen extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.BACK_GROUND,
-      body: Obx(() {
-        return const CircularProgressIndicator();
-      }),
-      bottomNavigationBar: SizedBox(
+      body: SizedBox(
+        height: SizeUtil.screenHeight,
         width: SizeUtil.screenWidth,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: controller.toShortVideoPage,
-                child: Text('To short video page',
-                    style: Get.textTheme.bodyMedium!),
-              ),
-              ElevatedButton(
-                onPressed: controller.toShortVideoPreloadPage,
-                child: Text('To short video preload page',
-                    style: Get.textTheme.bodyMedium!),
-              ),
-              ElevatedButton(
-                onPressed: controller.toShortVideoCache,
-                child: Text('To short video cache page',
-                    style: Get.textTheme.bodyMedium!),
-              ),
-              ElevatedButton(
-                onPressed: controller.toShort,
-                child: Text('To short test', style: Get.textTheme.bodyMedium!),
-              ),
-              ElevatedButton(
-                onPressed: controller.toNotificationPage,
-                child: Text('To notification page',
-                    style: Get.textTheme.bodyMedium!),
-              ),
-              ElevatedButton(
-                onPressed: controller.toListPost,
-                child: Text(
-                  'To list post',
-                  style: TextStyle(
-                      color: Get.isDarkMode ? Colors.green : Colors.pink),
-                ),
-              ),
-            ],
-          ),
-        ),
+        child: ListView.separated(
+            separatorBuilder: (context, index) => spaceHeight(10),
+            itemBuilder: (context, index) {
+              return ListTile(
+                tileColor: Colors.blue,
+                textColor: Colors.white,
+                title: Text(controller.listFunction[index].item1),
+                onTap: () {
+                  controller.listFunction[index].item2();
+                },
+              );
+            },
+            itemCount: controller.listFunction.length),
       ),
     );
   }
