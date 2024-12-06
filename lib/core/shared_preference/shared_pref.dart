@@ -62,4 +62,36 @@ class SharedPref {
   Future<bool> setFcmToken(String fcmToken) async {
     return _sharedPreference.setString(PrefKey.fcmToken, fcmToken);
   }
+
+  int get getAppOpen {
+    return _sharedPreference.getInt(PrefKey.appOpen) ?? 0;
+  }
+
+  Future<bool> setAppOpen(int appOpen) async {
+    return _sharedPreference.setInt(PrefKey.appOpen, appOpen);
+  }
+
+  int get getDaySinceInstall {
+    return _sharedPreference.getInt(PrefKey.daySinceInstall) ?? 0;
+  }
+
+  Future<bool> setDaySinceInstall(int daySinceInstall) async {
+    return _sharedPreference.setInt(PrefKey.daySinceInstall, daySinceInstall);
+  }
+
+  List<String> get getActiveDay {
+    return _sharedPreference.getStringList(PrefKey.activeDay) ?? [];
+  }
+
+  Future<bool> setActiveDay(List<String> activeDay) async {
+    return _sharedPreference.setStringList(PrefKey.activeDay, activeDay);
+  }
+
+  int get getFirstOpen {
+    return _sharedPreference.getInt(PrefKey.firstOpen) ?? 0;
+  }
+
+  Future<bool> setFirstOpen(int firstOpen) async {
+    return _sharedPreference.setInt(PrefKey.firstOpen, firstOpen);
+  }
 }

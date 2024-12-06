@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base_project/core/shared_preference/shared_pref.dart';
 import 'package:flutter_base_project/firebase_options.dart';
+import 'package:flutter_base_project/tracking/track_util.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
@@ -69,6 +70,7 @@ Future<void> _initApp() async {
   await DeviceUtil.initialize();
   // Init Get it.
   await DiContainer.init();
+  TrackUtil.init();
   FirebaseNotificationService.init();
 }
 

@@ -6,6 +6,7 @@ import 'package:flutter_base_project/data/data_source/dio_client.dart';
 import 'package:flutter_base_project/data/models/user_model.dart';
 import 'package:flutter_base_project/data/repo/remote/auth_repo.dart';
 import 'package:flutter_base_project/data/response/api_response.dart';
+import 'package:flutter_base_project/tracking/exports.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -50,6 +51,7 @@ class AuthController extends GetxController {
         DioClient.I.refreshToken();
       }
       isLoggin.value = true;
+      TrackUtil.updateUserInfo();
       return true;
     } else {
       isLoggin.value = false;
