@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base_project/core/shared_preference/shared_pref.dart';
 import 'package:flutter_base_project/firebase_options.dart';
-import 'package:flutter_base_project/services/multi_language_service/localization_service.dart';
+import 'package:flutter_base_project/core/services/multi_language_service/localization_service.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
