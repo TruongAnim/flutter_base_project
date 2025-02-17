@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/core/global/exports.dart';
 import 'package:flutter_base_project/core/services/ads/exports.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -23,7 +22,6 @@ class RewardLoadingShowView extends StatefulWidget {
 
 class _RewardLoadingShowViewState extends State<RewardLoadingShowView> {
   StreamSubscription? _streamSubscription;
-  final RewardAdsService _rewardAdsService = appGlobal<RewardAdsService>();
   final loadAdLimitedConfig = 10;
   Timer? _countDownTimer;
   Timer? _reloadTimer;
@@ -36,11 +34,11 @@ class _RewardLoadingShowViewState extends State<RewardLoadingShowView> {
   }
 
   void _loadAds() {
-    if (_rewardAdsService.adsState == AdsState.ready) {
+    if (RewardAdsService.instance.adsState == AdsState.ready) {
       showAds();
     } else {
       _streamSubscription =
-          _rewardAdsService.stateStream.stream.listen((state) {
+          RewardAdsService.instance.stateStream.stream.listen((state) {
         if (state == AdsState.ready && mounted) {
           showAds();
         }
@@ -60,8 +58,8 @@ class _RewardLoadingShowViewState extends State<RewardLoadingShowView> {
   }
 
   void reloadAds() {
-    if (_rewardAdsService.adsState == AdsState.error) {
-      _rewardAdsService.loadAds(widget.place);
+    if (RewardAdsService.instance.adsState == AdsState.error) {
+      RewardAdsService.instance.loadAds(widget.place);
     }
   }
 
@@ -70,7 +68,7 @@ class _RewardLoadingShowViewState extends State<RewardLoadingShowView> {
     isShowed = true;
     AdWithoutView? adWithoutView;
     RewardItem? rewardItem;
-    _rewardAdsService.showAds(
+    RewardAdsService.instance.showAds(
         place: widget.place,
         onSuccess: (AdWithoutView? view, RewardItem? reward) {
           adWithoutView = view;

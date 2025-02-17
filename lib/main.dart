@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
         themeMode: ThemeMode.system,
-        localizationsDelegates: AppConstants.localizationsDelegates,
+        localizationsDelegates: AppConsts.localizationsDelegates,
         supportedLocales: LocalizationService.locales,
         builder: EasyLoading.init(
           builder: (context, widget) {

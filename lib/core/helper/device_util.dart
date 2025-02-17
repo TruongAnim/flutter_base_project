@@ -10,7 +10,7 @@ mixin DeviceUtil {
 
   static void initialize() async {
     isAndroid = Platform.isAndroid;
-    isIos == Platform.isIOS;
+    isIos = Platform.isIOS;
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (isAndroid) {
       androidInfo = await deviceInfo.androidInfo;

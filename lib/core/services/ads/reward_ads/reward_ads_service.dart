@@ -1,18 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-enum AdsState {
-  loading,
-  ready,
-  showing,
-  error,
-}
+import '../admob_manager/admob_manager.dart';
+import '../admob_manager/ads_controller.dart';
 
-class RewardAdsService extends ChangeNotifier {
-  StreamController<AdsState> stateStream = StreamController.broadcast();
+class RewardAdsService extends AdsController {
   static final RewardAdsService _instance = RewardAdsService._internal();
   RewardAdsService._internal();
 
@@ -20,20 +14,14 @@ class RewardAdsService extends ChangeNotifier {
     return _instance;
   }
 
-  String _adsId = '';
-  RewardedAd? _rewardedAd;
-  int retryLoad = 2;
-  AdsState _adsState = AdsState.error;
-  get adsState => _adsState;
-  set updateState(AdsState newAdsState) {
-    _adsState = newAdsState;
-    stateStream.add(_adsState);
+  static get instance => _instance;
+
+  @override
+  void init() {
+    adsId = AdmobManager.instance.getAdsId(AdsType.reward);
   }
 
-  set adsId(String newAds) {
-    _adsId = newAds;
-  }
-
+  @override
   Future<AdsState> loadAds(String place) async {
     if (adsState == AdsState.loading || adsState == AdsState.ready) {
       return adsState;
@@ -41,12 +29,12 @@ class RewardAdsService extends ChangeNotifier {
     updateState = AdsState.loading;
     // trackEvent(AdsEvent.eventNameAdsLoad, place);
     await RewardedAd.load(
-      adUnitId: _adsId,
+      adUnitId: adsId,
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
           // trackEvent(AdsEvent.eventNameAdsLoadSuccess, place);
-          _rewardedAd = ad;
+          ads = ad;
           updateState = AdsState.ready;
           retryLoad = 2;
         },
@@ -60,28 +48,29 @@ class RewardAdsService extends ChangeNotifier {
     return adsState;
   }
 
+  @override
   void showAds({
     required String place,
-    required Function(AdWithoutView adWithoutView, RewardItem reward) onSuccess,
+    Function? onSuccess,
     Function? onShow,
     Function? onClose,
     Function? onError,
   }) {
-    if (adsState != AdsState.ready || _rewardedAd == null) {
+    if (adsState != AdsState.ready || ads is! RewardedAd) {
       log('Ads not ready');
       onError?.call();
       return;
     }
     updateState = AdsState.showing;
     // Call khi user đóng ads
-    _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
+    (ads as RewardedAd).fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
         onClose?.call();
         loadAds(place);
       },
     );
     // Call ngay khi show ads
-    _rewardedAd?.onPaidEvent = (Ad ad, double valueMicros,
+    (ads as RewardedAd).onPaidEvent = (Ad ad, double valueMicros,
         PrecisionType precision, String currencyCode) {
       onShow?.call();
       double value = valueMicros / 1000000;
@@ -90,10 +79,10 @@ class RewardAdsService extends ChangeNotifier {
       // trackEvent(AdsEvent.eventNameAdsPaid, place,
       //     currency: currencyCode, revenue: value);
     };
-    _rewardedAd?.show(
+    (ads as RewardedAd).show(
       // Call khi user có thể nhận reward (Chưa cần lick tắt quảng cáo)
       onUserEarnedReward: (adWithoutView, reward) {
-        onSuccess(adWithoutView, reward);
+        onSuccess?.call(adWithoutView, reward);
       },
     );
   }
