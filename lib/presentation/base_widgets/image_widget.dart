@@ -20,6 +20,7 @@ class ImageWidget extends StatelessWidget {
     this.icon,
     this.color,
     this.blendModeSvg,
+    this.defaultImage,
   });
 
   final String urlImage;
@@ -30,9 +31,10 @@ class ImageWidget extends StatelessWidget {
   final Color? color;
   final Color? colorSvg;
   final BlendMode? blendModeSvg;
+  final String? defaultImage;
 
   ImageType _checkImageUrlType(String url) {
-    if (nullOrEmpty(icon)) {
+    if (notNullOrEmpty(icon)) {
       return ImageType.ICON;
     }
     if (nullOrEmpty(url) && nullOrEmpty(icon)) {
@@ -51,10 +53,12 @@ class ImageWidget extends StatelessWidget {
     if (url.startsWith('assets/')) {
       return ImageType.ASSET;
     }
-    return ImageType.NOT_IMAGE;
+    return ImageType.FILE;
   }
 
   Widget _imageTypeWidget(String urlImage, ImageType imageType) {
+    final fallbackImage = defaultImage ?? AppImages.placeHolder;
+
     if (imageType == ImageType.NETWORK) {
       return CachedNetworkImage(
         imageUrl: urlImage,
@@ -75,7 +79,7 @@ class ImageWidget extends StatelessWidget {
           height: height,
         ),
         errorWidget: (context, url, error) => Image.asset(
-          AppImages.placeHolder,
+          fallbackImage,
           fit: fit,
           height: height ?? SizeUtil.defaultSize,
           width: width ?? SizeUtil.defaultSize,
@@ -89,7 +93,7 @@ class ImageWidget extends StatelessWidget {
         width: width,
         errorBuilder: (context, error, stackTrace) {
           return Image.asset(
-            AppImages.placeHolder,
+            fallbackImage,
             fit: fit,
             height: height ?? SizeUtil.defaultSize,
             width: width ?? SizeUtil.defaultSize,
@@ -104,7 +108,7 @@ class ImageWidget extends StatelessWidget {
         width: width,
         errorBuilder: (context, error, stackTrace) {
           return Image.asset(
-            AppImages.placeHolder,
+            fallbackImage,
             fit: fit,
             height: height ?? SizeUtil.defaultSize,
             width: width ?? SizeUtil.defaultSize,
@@ -171,7 +175,7 @@ class ImageWidget extends StatelessWidget {
 
     if (imageType == ImageType.NOT_IMAGE) {
       return Image.asset(
-        AppImages.placeHolder,
+        fallbackImage,
         fit: fit,
         height: height ?? SizeUtil.defaultSize,
         width: width ?? SizeUtil.defaultSize,
