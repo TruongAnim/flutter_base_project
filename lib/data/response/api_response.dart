@@ -1,16 +1,22 @@
-import 'package:dio/dio.dart';
+import 'api_error_handler.dart';
 
-class ApiResponse {
-  final Response response;
-  final dynamic error;
+class ApiResponse<T> {
+  final T? r;
+  final dynamic e;
+  final String? token;
 
-  ApiResponse(this.response, this.error);
+  ApiResponse({required this.r, required this.e, this.token});
 
-  ApiResponse.withError(dynamic errorValue)
-      : response = Response(requestOptions: RequestOptions()),
-        error = errorValue;
+  factory ApiResponse.error(dynamic e) {
+    return ApiResponse(r: null, e: ApiErrorHandler.getMessage(e));
+  }
 
-  ApiResponse.withSuccess(Response responseValue)
-      : response = responseValue,
-        error = null;
+  factory ApiResponse.success(T r, {String? token}) {
+    return ApiResponse(r: r, e: null, token: token);
+  }
+
+  @override
+  String toString() {
+    return '$runtimeType=> r: $r, e: $e, token: $token';
+  }
 }

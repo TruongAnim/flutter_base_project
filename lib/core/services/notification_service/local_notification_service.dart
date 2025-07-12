@@ -17,7 +17,6 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'received_notification.dart';
-import 'package:flutter_base_project/core/helper/device_util.dart';
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse notificationResponse) {
@@ -149,17 +148,6 @@ class LocalNotificationService {
       requestAlertPermission: false,
       requestBadgePermission: false,
       requestSoundPermission: false,
-      onDidReceiveLocalNotification:
-          (int id, String? title, String? body, String? payload) async {
-        didReceiveLocalNotificationStream.add(
-          ReceivedNotification(
-            id: id,
-            title: title,
-            body: body,
-            payload: payload,
-          ),
-        );
-      },
       notificationCategories: darwinNotificationCategories,
     );
     final LinuxInitializationSettings initializationSettingsLinux =
@@ -743,9 +731,9 @@ class LocalNotificationService {
   }
 
   Future<void> _showBigPictureNotification() async {
-    final String largeIconPath = (await FileHelper.httpDownloadFile(
+    final String largeIconPath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/48x48', 'largeIcon'))!;
-    final String bigPicturePath = (await FileHelper.httpDownloadFile(
+    final String bigPicturePath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/400x800', 'bigPicture'))!;
     final BigPictureStyleInformation bigPictureStyleInformation =
         BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
@@ -827,9 +815,9 @@ class LocalNotificationService {
   }
 
   Future<void> _showBigPictureNotificationHiddenLargeIcon() async {
-    final String largeIconPath = (await FileHelper.httpDownloadFile(
+    final String largeIconPath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/48x48', 'largeIcon'))!;
-    final String bigPicturePath = (await FileHelper.httpDownloadFile(
+    final String bigPicturePath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/400x800', 'bigPicture'))!;
     final BigPictureStyleInformation bigPictureStyleInformation =
         BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
@@ -851,7 +839,7 @@ class LocalNotificationService {
   }
 
   Future<void> _showNotificationMediaStyle() async {
-    final String largeIconPath = (await FileHelper.httpDownloadFile(
+    final String largeIconPath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/128x128/00FF00/000000', 'largeIcon'))!;
     final AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -929,7 +917,7 @@ class LocalNotificationService {
       icon: FlutterBitmapAssetAndroidIcon('icons/coworker.png'),
     );
     // download the icon that would be use for the lunch bot person
-    final String largeIconPath = (await FileHelper.httpDownloadFile(
+    final String largeIconPath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/48x48', 'largeIcon'))!;
     // this person object will use an icon that was downloaded
     final Person lunchBot = Person(
@@ -1510,7 +1498,7 @@ class LocalNotificationService {
   Future<void> _showNotificationWithAttachment({
     required bool hideThumbnail,
   }) async {
-    final String bigPicturePath = (await FileHelper.httpDownloadFile(
+    final String bigPicturePath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/600x200', 'bigPicture.jpg'))!;
     final DarwinNotificationDetails darwinNotificationDetails =
         DarwinNotificationDetails(
@@ -1531,7 +1519,7 @@ class LocalNotificationService {
   }
 
   Future<void> _showNotificationWithClippedThumbnailAttachment() async {
-    final String bigPicturePath = (await FileHelper.httpDownloadFile(
+    final String bigPicturePath = (await FileUtil.httpDownloadFile(
         'https://dummyimage.com/600x200', 'bigPicture.jpg'))!;
     final DarwinNotificationDetails darwinNotificationDetails =
         DarwinNotificationDetails(

@@ -5,7 +5,12 @@ enum MappingType {
   isarCollection,
 }
 
-mixin Mapping {
+class Mapping {
+  Mapping._();
+  static final Mapping _instance = Mapping._();
+  static Mapping get instance => _instance;
+  static Mapping get I => _instance;
+
   final Map<Type, Map<MappingType, dynamic>> _mapping = {};
 
   void registerMapping<T>(MappingType type, dynamic data) {

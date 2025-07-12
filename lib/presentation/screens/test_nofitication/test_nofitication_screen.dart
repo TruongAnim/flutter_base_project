@@ -18,13 +18,18 @@ class TestNotificationScreen extends GetView<TestNotificationController> {
         child: Column(
           children: [
             const MaxGap(40),
-            ElevatedButton(
-              onPressed: controller.requestPermission,
-              child: const Text('Request permission'),
+            ListTile(
+              onTap: controller.requestPermission,
+              title: const Text('Request permission'),
+              tileColor: Colors.blue,
+              textColor: Colors.white,
             ),
-            ElevatedButton(
-              onPressed: controller.showNoti,
-              child: const Text('Show noti'),
+            Gap(12),
+            ListTile(
+              onTap: controller.showNoti,
+              title: const Text('Show noti'),
+              tileColor: Colors.blue,
+              textColor: Colors.white,
             ),
           ],
         ),

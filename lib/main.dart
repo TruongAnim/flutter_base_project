@@ -1,8 +1,10 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base_project/core/shared_preference/shared_pref.dart';
 import 'package:flutter_base_project/firebase_options.dart';
+import 'package:flutter_base_project/tracking/track_util.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
@@ -10,21 +12,17 @@ import 'config/routes/exports.dart';
 import 'config/theme/exports.dart';
 import 'constants/exports.dart';
 import 'core/global/exports.dart';
-import 'core/helper/size_util.dart';
+import 'core/helper/exports.dart';
 import 'core/services/exports.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   // Init firebase.
   await Firebase.initializeApp(
       name: "Flutter base project",
       options: DefaultFirebaseOptions.currentPlatform);
 
-  // Init Get it.
-  await DiContainer.init();
-  FirebaseAppCheck.instance.activate();
-  FirebaseNotificationService.init();
+  await _initApp();
 
   /// Instance Easy Loading.
   EasyLoading.instance
@@ -62,6 +60,18 @@ void _updateSystemChrome() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+}
+
+Future<void> _initApp() async {
+  await SharedPref.instance.init();
+  CrashlyticsService.init();
+  PerformanceService.I.init();
+  await AppTrackingTransparency.requestTrackingAuthorization();
+  await DeviceUtil.initialize();
+  // Init Get it.
+  await DiContainer.init();
+  TrackUtil.init();
+  FirebaseNotificationService.init();
 }
 
 class MyApp extends StatelessWidget {

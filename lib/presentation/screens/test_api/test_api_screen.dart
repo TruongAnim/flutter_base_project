@@ -2,10 +2,10 @@ import 'package:flutter_base_project/constants/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'list_post_controller.dart';
+import 'test_api_controller.dart';
 
-class ListPostScreen extends GetView<ListPostController> {
-  const ListPostScreen({super.key});
+class TestApiScreen extends GetView<TestApiController> {
+  const TestApiScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +15,15 @@ class ListPostScreen extends GetView<ListPostController> {
         if (controller.isLoading.isTrue) {
           return CircularProgressIndicator();
         }
-        return ListView.builder(
+        return ListView.separated(
+          separatorBuilder: (context, index) => const Divider(),
           itemCount: controller.listPost.length,
           itemBuilder: (context, index) {
-            return Text(controller.listPost[index].user.toString());
+            return ListTile(
+              tileColor: Colors.blue,
+              textColor: Colors.white,
+              title: Text(controller.listPost[index].title.toString()),
+            );
           },
         );
       }),

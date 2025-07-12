@@ -19,7 +19,7 @@ class LanguageItem extends GetView<LanguageController> {
       final bool isSelected = controller.selectedIndex.value == index;
       return GestureDetector(
         onTap: () {
-          CommonHelper.addVibration(callback: () {
+          AppUtil.addVibration(callback: () {
             controller.onLanguageChange(index);
           });
         },

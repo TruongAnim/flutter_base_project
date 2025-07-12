@@ -8,17 +8,15 @@ enum TypeOfAlert {
 }
 
 enum ImageType {
+  SVG_HTTP,
+  SVG_ASSET,
+  SVG_FILE,
   SVG,
-  IMAGE,
-  NOT_IMAGE,
-}
-
-enum ImageUrlType {
   NETWORK,
   ASSET,
   FILE,
   ICON,
-  IMAGE_CIRCLE,
+  NOT_IMAGE,
 }
 
 enum TabTool { whistle, clicker, challenge }

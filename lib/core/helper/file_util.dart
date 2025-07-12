@@ -7,7 +7,7 @@ import 'package:flutter_base_project/data/data_source/dio_client.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
-mixin FileHelper {
+mixin FileUtil {
   static String byteToString(int bytes, {int? decimals = 2}) {
     if (bytes <= 0) return "0 B";
     const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];

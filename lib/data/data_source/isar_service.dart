@@ -3,10 +3,19 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 class IsarService {
+  IsarService._();
+  static final IsarService _instance = IsarService._();
+  static IsarService get instance => _instance;
+  static IsarService get I => _instance;
+
+  bool isInit = false;
+  late final Isar isar;
+
   // dart run build_runner build
-  Future<Isar> init() async {
+  Future<void> init() async {
     final dir = await getApplicationDocumentsDirectory();
-    return Isar.openSync(
+    isInit = true;
+    isar = await Isar.open(
       [ProductLocalModelSchema],
       directory: dir.path,
       name: 'Local_Database',

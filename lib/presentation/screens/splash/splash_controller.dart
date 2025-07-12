@@ -1,61 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/config/routes/exports.dart';
-import 'package:flutter_base_project/core/global/exports.dart';
-import 'package:flutter_base_project/core/shared_preference/exports.dart';
-import 'package:flutter_base_project/presentation/screens/language/language_controller.dart';
+import 'package:flutter_base_project/core/global/auth_controller.dart';
+import 'package:flutter_base_project/core/shared_preference/shared_pref.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  late AnimationController animationController;
-  late Animation<double> bounceAnimation;
-  // final premiumCtrl = Get.find<PremiumController>();
+  late final AnimationController progressController;
+  late final Animation<double> progressValue;
+  final double _startValue = 0.2;
 
   @override
-  Future<void> onInit() async {
+  void onInit() {
     super.onInit();
-    showAnimationLogo();
-    _startApp();
+    progressController = AnimationController(
+      vsync: this,
+      value: _startValue,
+    );
+    progressController.addStatusListener(_onStatusListener);
+    progressValue = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: progressController,
+        curve: Curves.easeIn,
+      ),
+    );
+
+    _login();
   }
 
   @override
   void onClose() {
-    animationController.dispose();
+    progressController.dispose();
     super.onClose();
   }
 
-  void _startApp() async {
-    _loadingAds(callback: toSecondScreen);
-  }
-
-  void showAnimationLogo() {
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1700),
-    );
-
-    bounceAnimation = CurvedAnimation(
-      parent: animationController,
-      curve: Curves.bounceOut,
-    );
-    animationController.forward();
-  }
-
-  void toSecondScreen() {
-    bool isFirstOpen = appGlobal<SharedPrefsHelper>().getIsFirstOpen;
-    if (isFirstOpen) {
-      appGlobal<SharedPrefsHelper>().setIsFirstOpen(isFirst: false);
-    } else {
-      // premiumCtrl.handleActionWithPremiumRole(() {
-      //   Get.offAllNamed(BaseRouters.MAIN_NAVIGATOR);
-      // }, true);
+  void _onStatusListener(AnimationStatus status) {
+    if (status == AnimationStatus.completed) {
+      Get.toNamed(BaseRouters.dashboard);
     }
-    Get.offAllNamed(BaseRouters.language,
-        arguments: {LanguageController.argIsIntro: true});
   }
 
-  void _loadingAds({required void Function() callback}) {
-    // Fake loading
-    Future.delayed(const Duration(seconds: 3), callback);
+  Future<void> _login() async {
+    // Load data sync
+    final loginDone = await Get.find<AuthController>().login();
+    if (!loginDone) {
+      Get.toNamed(BaseRouters.noNetwork);
+      return;
+    }
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    // Load data async
+    progressController.duration =
+        Duration(milliseconds: SharedPref.I.getIsFirstOpen ? 2500 : 1500);
+    progressController.forward(from: _startValue);
   }
 }

@@ -12,17 +12,17 @@ class DioClient {
   static const String tag = 'DioClient';
 
   Dio? dio;
-  LoggingInterceptor? loggingInterceptor;
+  DioClient._();
 
-  DioClient() {
-    _init();
-  }
+  static final DioClient _instance = DioClient._();
+  static DioClient get I => _instance;
+  static DioClient get instance => _instance;
 
   ///
   /// Init dio.
   ///
-  void _init() {
-    final String jwtToken = appGlobal.get<SharedPrefsHelper>().getJwtToken;
+  void init() {
+    final String jwtToken = SharedPref.I.getJwtToken;
 
     dio = Dio();
     dio!
@@ -32,7 +32,8 @@ class DioClient {
       ..httpClientAdapter
       ..options.headers = {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $jwtToken'
+        'Authorization': 'Bearer $jwtToken',
+        'platform': DeviceUtil.isAndroid ? 'android' : 'ios',
       };
     dio!.interceptors.add(appGlobal.get<LoggingInterceptor>());
   }
@@ -40,11 +41,12 @@ class DioClient {
   ///
   /// Refresh token.
   ///
-  Future<void> refreshToken() async {
-    final String jwtToken = appGlobal.get<SharedPrefsHelper>().getJwtToken;
+  void refreshToken() async {
+    final String jwtToken = SharedPref.I.getJwtToken;
     dio!.options.headers = {
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer $jwtToken'
+      'Authorization': 'Bearer $jwtToken',
+      'platform': DeviceUtil.isAndroid ? 'android' : 'ios',
     };
   }
 
@@ -84,7 +86,7 @@ class DioClient {
     // final data = AuthResponse.fromMap(results as Map<String, dynamic>);
     // sl<SharedPreferenceHelper>().setJwtToken(data.accessToken.toString());
     // sl<SharedPreferenceHelper>().setRefreshToken(data.refreshToken.toString());
-    await refreshToken();
+    refreshToken();
   }
 
   Future<Response> get(

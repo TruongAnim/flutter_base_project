@@ -1,35 +1,24 @@
+import 'package:flutter_base_project/data/data_source/isar_service.dart';
 import 'package:flutter_base_project/data/models/exports.dart';
+import 'package:flutter_base_project/data/response/exports.dart';
 
 import 'local_repo.dart';
 
-class ProductLocalRepo {
-  final LocalRepo localRepo;
-  ProductLocalRepo(this.localRepo) {
-    localRepo.registerCollection<ProductLocalModel>(
-        localRepo.isar.productLocalModels);
-  }
+class ProductLocalRepo extends LocalRepo<ProductLocalModel> {
+  ProductLocalRepo()
+      : super(IsarService.I.isar,
+            collection: IsarService.I.isar.productLocalModels);
 
-  Future<void> getAll(
-      {required Function(List<ProductLocalModel>) onSuccess,
-      required Function(dynamic error) onError}) async {
+  Future<ApiResponse<List<ProductLocalModel>>> getProductByName(
+      String name) async {
     try {
-      onSuccess(await localRepo.getAll<ProductLocalModel>());
-    } catch (e) {
-      onError(e);
-    }
-  }
-
-  Future<void> getProductByName(
-      String name,
-      Function(List<ProductLocalModel>) onSuccess,
-      Function(dynamic onError) onError) async {
-    try {
-      final allProduct = await localRepo.getAll<ProductLocalModel>();
-      onSuccess(allProduct
+      final allProduct = await getAll();
+      final result = allProduct
           .where((item) => item.name?.contains(name) ?? false)
-          .toList());
+          .toList();
+      return ApiResponse.success(result);
     } catch (e) {
-      onError(e);
+      return ApiResponse.error(e);
     }
   }
 }

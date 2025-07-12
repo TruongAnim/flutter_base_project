@@ -1,34 +1,29 @@
 import 'package:flutter_base_project/config/routes/base_routers.dart';
-import 'package:flutter_base_project/core/global/exports.dart';
 import 'package:flutter_base_project/core/shared_preference/exports.dart';
-import 'package:flutter_base_project/data/models/exports.dart';
-import 'package:flutter_base_project/data/repo/local/exports.dart';
 import 'package:get/get.dart';
+import 'package:tuple/tuple.dart';
 
 class DashboardController extends GetxController {
-  final ProductLocalRepo productRepo = appGlobal<ProductLocalRepo>();
-  RxList<ProductLocalModel> listProducts = RxList();
-  RxBool isLoading = RxBool(true);
+  final List<Tuple2<String, Function>> listFunction = [];
   @override
   void onInit() {
     super.onInit();
     initData();
-    appGlobal<SharedPrefsHelper>().setJwtToken(
-        'ODg5MA.4TgyyGu55cnp0BY04YE9SUi7nvhzeeuFrnbHEmOpUrTOll8ybgzC2OX5ZhVb');
   }
 
   Future<void> initData() async {
-    await productRepo.getAll(
-      onSuccess: (result) {
-        listProducts.value = result;
-        isLoading.value = false;
-      },
-      onError: (err) {},
-    );
+    listFunction.addAll([
+      Tuple2('List Post', toListPost),
+      Tuple2('Notification', toNotificationPage),
+      Tuple2('Short Video', toShortVideoPage),
+      Tuple2('Short Video Preload', toShortVideoPreloadPage),
+      Tuple2('Short Video Cache', toShortVideoCache),
+      Tuple2('Short', toShort),
+    ]);
   }
 
   void toListPost() {
-    Get.toNamed(BaseRouters.listPost);
+    Get.toNamed(BaseRouters.testApi);
   }
 
   void toNotificationPage() {
